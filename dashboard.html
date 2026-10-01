@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/fonts.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/dashboard.css" rel="stylesheet">
+  <link href="css/theme.css" rel="stylesheet">
+  <script src="js/theme-init.js"></script>
+</head>
+<body class="dash-body auth-pending">
+
+<!-- Top bar: SCRUM-8 (profile), SCRUM-9 (preferences), SCRUM-7 (logout) live in this menu -->
+<nav class="navbar dash-nav sticky-top">
+  <div class="container-fluid px-3 px-lg-4">
+    <div class="d-flex align-items-center gap-2">
+    <button type="button" class="dash-menu-btn d-lg-none" id="sidebarToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="dashSidebar"><i class="bi bi-list"></i></button>
+    <a href="dashboard.html" class="brand dash-brand">
+      <span class="brand-mark"><img src="images/logo-compass.svg" alt="" width="26" height="26"></span> <span class="d-none d-sm-inline">Leyte Tourism Guide</span>
+    </a>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 nav-right">
+    <!-- Search destinations (replaces the old All Tourist Spots page) -->
+    <div class="nav-search">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input type="search" id="spotSearch" class="form-control" placeholder="Search destinations…" aria-label="Search destinations" autocomplete="off">
+      </div>
+      <div class="nav-search-results d-none" id="searchResults" role="listbox"></div>
+    </div>
+    <!-- Appearance: one round button (shows the current mode). Hover or tap it and Light, Dark, Auto drop down. -->
+    <div class="theme-fab theme-fab-inline">
+      <button type="button" class="theme-fab-toggle" aria-haspopup="true" aria-label="Color theme"><i class="bi bi-sun"></i></button>
+      <div class="theme-fab-menu" role="group" aria-label="Color theme">
+        <button type="button" class="theme-fab-item" data-theme-mode="light"><i class="bi bi-sun"></i>Light (default)</button>
+        <button type="button" class="theme-fab-item" data-theme-mode="dark"><i class="bi bi-moon-stars"></i>Dark</button>
+        <button type="button" class="theme-fab-item" data-theme-mode="auto" title="Light from 6 AM to 6 PM, dark otherwise"><i class="bi bi-circle-half"></i>Auto (day &amp; night)</button>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn dash-user-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="avatar-circle" id="navAvatar">RS</span>
+        <span class="d-none d-sm-inline" id="navName">Ronnel Salceda</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+        <li><h6 class="dropdown-header">Signed in as <span id="navEmail">you@example.com</span></h6></li>
+        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#profileModal"><i class="bi bi-person me-2"></i>Manage profile</button></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="bi bi-box-arrow-right me-2"></i>Log out</button></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</nav>
+
+<div class="dash-shell">
+  <div class="dash-sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="dash-sidebar" id="dashSidebar">
+    <nav class="dash-sidebar-nav" aria-label="Dashboard sections">
+      <a href="#dashboard" class="dash-sidebar-link active" data-view="dashboard"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+      <a href="#history" class="dash-sidebar-link" data-view="history"><i class="bi bi-clock-history"></i><span>History Log</span></a>
+    </nav>
+  </aside>
+
+  <div class="dash-content">
+  <main class="container-fluid px-3 px-lg-4 py-4 py-lg-5">
+
+    <!-- ===== Dashboard ===== -->
+    <section class="dash-view" id="view-dashboard">
+
+      <!-- Welcome -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 dash-hero">
+        <div>
+          <p class="text-secondary mb-1 d-flex flex-wrap align-items-center gap-2">
+            <span id="liveDateTime">&nbsp;</span>
+            <span class="weather-badge" id="liveWeather"><i class="bi bi-cloud me-1"></i>Loading weather…</span>
+          </p>
+          <h1 class="h2 fw-bold mb-0">Welcome<span id="welcomeBack"> back</span>, <span id="welcomeName"></span></h1>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#prefsModal">
+            <i class="bi bi-sliders me-1"></i> Preferences
+          </button>
+          <a href="#" class="btn btn-primary disabled" aria-disabled="true" tabindex="-1" title="Coming soon"><i class="bi bi-signpost-split me-1"></i> Plan a route <em class="soon-tag ms-1">Coming soon</em></a>
+        </div>
+      </div>
+
+      <!-- Quick access -->
+      <div class="row g-3 mb-5">
+        <div class="col-6 col-lg-3">
+          <a href="#" class="quick-card is-disabled" aria-disabled="true" tabindex="-1">
+            <i class="bi bi-compass"></i><span>Browse destinations</span><em class="soon-tag">Coming soon</em>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="#" class="quick-card is-disabled" aria-disabled="true" tabindex="-1">
+            <i class="bi bi-signpost-split"></i><span>Plan a route</span><em class="soon-tag">Coming soon</em>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="#" class="quick-card is-disabled" aria-disabled="true" tabindex="-1">
+            <i class="bi bi-cloud-sun"></i><span>Check weather</span><em class="soon-tag">Coming soon</em>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="#" class="quick-card is-disabled" aria-disabled="true" tabindex="-1">
+            <i class="bi bi-calendar2-check"></i><span>Day trip planner</span><em class="soon-tag">Coming soon</em>
+          </a>
+        </div>
+      </div>
+
+      <!-- Recommended for you (from saved preferences) -->
+      <section class="mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h4 fw-bold mb-0">Recommended for you</h2>
+          <button class="btn btn-link btn-sm text-decoration-none" type="button" data-bs-toggle="modal" data-bs-target="#prefsModal">Not quite right? Adjust preferences</button>
+        </div>
+        <div class="row g-3" id="recommended"></div>
+      </section>
+
+    </section>
+
+            <!-- ===== History log ===== -->
+    <section class="dash-view d-none" id="view-history">
+      <div class="row g-4">
+        <!-- Recently viewed -->
+        <div class="col-lg-6 d-flex flex-column history-col">
+          <div class="d-flex justify-content-between align-items-center mb-3 history-head">
+            <div>
+              <h2 class="h5 fw-bold mb-1">History log</h2>
+              <p class="text-secondary small mb-0">Places you've recently viewed.</p>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary d-none" id="clearRecentBtn" data-bs-toggle="modal" data-bs-target="#clearRecentModal">
+              <i class="bi bi-trash3 me-1"></i>Clear history
+            </button>
+          </div>
+          <div class="list-group" id="recentList"></div>
+        </div>
+
+        <!-- Favorites -->
+        <div class="col-lg-6 d-flex flex-column history-col">
+          <div class="d-flex justify-content-between align-items-center mb-3 history-head">
+            <div>
+              <h2 class="h5 fw-bold mb-1">Your favorites</h2>
+              <p class="text-secondary small mb-0">Places you've saved.</p>
+            </div>
+          </div>
+          <div class="list-group" id="favList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  </div>
+</div>
+
+<!-- ===== SCRUM-8: Manage User Profile ===== -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5 fw-bold" id="profileModalLabel">Manage your profile</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="profileAlert" class="alert alert-success d-none py-2 small"></div>
+        <form id="profileForm" novalidate>
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <label for="pfFirstName" class="form-label">First name</label>
+              <input type="text" class="form-control" id="pfFirstName" required>
+              <div class="invalid-feedback">Enter your first name.</div>
+            </div>
+            <div class="col-sm-6">
+              <label for="pfLastName" class="form-label">Last name</label>
+              <input type="text" class="form-control" id="pfLastName" required>
+              <div class="invalid-feedback">Enter your last name.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="pfEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="pfEmail" required>
+            <div class="invalid-feedback">Enter a valid email address.</div>
+          </div>
+          <hr class="my-4">
+          <p class="fw-semibold small text-secondary mb-2">Change password</p>
+          <div class="mb-3">
+            <label for="pfCurrentPw" class="form-label">Current password</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="pfCurrentPw" autocomplete="current-password" placeholder="Leave blank to keep your current password">
+              <button class="btn btn-outline-secondary toggle-pw" type="button" data-target="pfCurrentPw" aria-label="Show password"><i class="bi bi-eye"></i></button>
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="pfNewPw" class="form-label">New password</label>
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" id="pfNewPw" autocomplete="new-password" minlength="8">
+                <button class="btn btn-outline-secondary toggle-pw" type="button" data-target="pfNewPw" aria-label="Show password"><i class="bi bi-eye"></i></button>
+                <div class="invalid-feedback">Use at least 8 characters.</div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="pfConfirmPw" class="form-label">Confirm new password</label>
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" id="pfConfirmPw" autocomplete="new-password">
+                <button class="btn btn-outline-secondary toggle-pw" type="button" data-target="pfConfirmPw" aria-label="Show password"><i class="bi bi-eye"></i></button>
+                <div class="invalid-feedback">Passwords don't match.</div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4">
+          <p class="fw-semibold small mb-2 text-danger">Danger zone</p>
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 danger-zone p-3">
+            <div>
+              <p class="fw-semibold mb-0">Delete your account</p>
+              <p class="small text-secondary mb-0">This removes your profile, favorites, and history. It can't be undone.</p>
+            </div>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAccountModal" data-bs-dismiss="modal">Delete account</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" form="profileForm" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm before clearing the recently viewed history -->
+<div class="modal fade" id="clearRecentModal" tabindex="-1" aria-labelledby="clearRecentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4">
+      <div class="modal-body p-4 text-center">
+        <i class="bi bi-clock-history display-5 text-danger"></i>
+        <h2 class="h5 fw-bold mt-3" id="clearRecentModalLabel">Clear your viewing history?</h2>
+        <p class="text-secondary mb-3">This removes every place from Recently viewed on your account. Your favorites aren't affected.</p>
+        <div id="clearRecentError" class="alert alert-danger py-2 small d-none" role="alert"></div>
+        <div class="d-flex justify-content-center gap-2">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Keep history</button>
+          <button type="button" class="btn btn-danger" id="confirmClearRecent"><i class="bi bi-trash3 me-1"></i>Clear history</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRUM-8: confirm before deleting the account -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4">
+      <div class="modal-body p-4 text-center">
+        <i class="bi bi-exclamation-triangle display-5 text-danger"></i>
+        <h2 class="h5 fw-bold mt-3" id="deleteAccountModalLabel">Delete your account?</h2>
+        <p class="text-secondary mb-4">This permanently removes your profile, favorites, and history. This can't be undone.</p>
+        <div class="d-flex justify-content-center gap-2">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Keep my account</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteAccount">
+            <i class="bi bi-trash3 me-1"></i>Delete permanently
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCRUM-9: Save User Preferences ===== -->
+<div class="modal fade" id="prefsModal" tabindex="-1" aria-labelledby="prefsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content border-0 rounded-4">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5 fw-bold" id="prefsModalLabel">Your travel preferences</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="prefsAlert" class="alert alert-success d-none py-2 small"></div>
+
+        <p class="fw-semibold mb-2">What kind of places do you like?</p>
+        <div class="row g-3 mb-4" id="dashCatOpts"></div>
+
+        <p class="fw-semibold mb-2">Where do you want to be?</p>
+        <div class="row g-3 mb-4" id="dashAreaOpts"></div>
+
+        <p class="fw-semibold mb-2">What's your budget?</p>
+        <div class="row g-3 mb-4" id="dashBudgetOpts"></div>
+
+        <p class="fw-semibold mb-2">How long is your trip?</p>
+        <div class="row g-3" id="dashTripOpts"></div>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="savePrefsBtn">Save preferences</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCRUM-7: User Logout ===== -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4">
+      <div class="modal-body p-4 text-center">
+        <i class="bi bi-box-arrow-right display-5 text-secondary"></i>
+        <h2 class="h5 fw-bold mt-3" id="logoutModalLabel">Log out of your account?</h2>
+        <p class="text-secondary mb-4">You'll need to sign in again to see your favorites and saved routes.</p>
+        <div class="d-flex justify-content-center align-items-center gap-2 pt-1">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Stay signed in</button>
+          <a href="login.html" class="btn btn-primary" id="confirmLogout">Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Weather across all tourist spots (live from OpenWeather) -->
+<div class="modal fade" id="weatherModal" tabindex="-1" aria-labelledby="weatherModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content border-0 rounded-4">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5 fw-bold" id="weatherModalLabel"><i class="bi bi-cloud-sun me-2"></i>Weather at every spot</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-0">
+        <div class="list-group" id="weatherList"></div>
+      </div>
+      <div class="modal-footer border-0 justify-content-between">
+        <span class="wx-src" id="weatherNote"></span>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="refreshWeatherBtn"><i class="bi bi-arrow-clockwise me-1"></i>Refresh</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Destination Details popup: opens for any card/row with data-place. Landscape: photo on the left, info on the right. -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="dmName" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl dm-dialog">
+    <div class="modal-content border-0 rounded-4 overflow-hidden">
+      <div class="dm-landscape">
+        <div class="dm-side">
+          <div id="dmThumbWrap" class="dm-thumb"></div>
+          <div class="dm-side-body">
+            <div class="d-flex flex-wrap gap-1 mb-3" id="dmCats"></div>
+            <div class="dm-weather d-flex align-items-center gap-3">
+              <i class="bi display-6" id="dmWeatherIcon"></i>
+              <div>
+                <div class="d-flex align-items-baseline gap-2"><span class="fw-bold fs-5" id="dmWeatherTemp"></span><span class="small text-secondary" id="dmWeatherCond"></span></div>
+                <div class="small text-secondary" id="dmWeatherMeta"></div>
+                <div class="small mt-1" id="dmWeatherTip"></div>
+                <div class="wx-src" id="dmWeatherSrc"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dm-main modal-body">
+          <h2 class="h4 fw-bold mb-0" id="dmName">&nbsp;</h2>
+          <p class="text-secondary small mb-3" id="dmTown"></p>
+          <p class="mb-2 fw-medium" id="dmBlurb"></p>
+          <p class="mb-3 text-secondary" id="dmAbout"></p>
+
+          <h3 class="dm-h">Highlights</h3>
+          <ul class="dm-highlights mb-3" id="dmHighlights"></ul>
+
+          <dl class="dm-facts row mb-3">
+            <dt class="col-sm-4 text-secondary small">Entrance fee</dt>
+            <dd class="col-sm-8 fw-medium" id="dmFee"></dd>
+            <dt class="col-sm-4 text-secondary small">Operating hours</dt>
+            <dd class="col-sm-8 fw-medium" id="dmHours"></dd>
+            <dt class="col-sm-4 text-secondary small">Best time to visit</dt>
+            <dd class="col-sm-8" id="dmBest"></dd>
+            <dt class="col-sm-4 text-secondary small">Getting there</dt>
+            <dd class="col-sm-8" id="dmGetThere"></dd>
+            <dt class="col-sm-4 text-secondary small">Facilities</dt>
+            <dd class="col-sm-8"><ul class="ps-3 mb-0" id="dmFacilities"></ul></dd>
+          </dl>
+
+          <div class="dm-tip d-flex gap-2"><i class="bi bi-lightbulb"></i><span id="dmTip"></span></div>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="#" class="btn btn-primary disabled" aria-disabled="true" tabindex="-1" title="Coming soon"><i class="bi bi-signpost-split me-1"></i>Plan a route here <em class="soon-tag ms-1">Coming soon</em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Destination details popup ===== -->
+<div class="modal fade detail-modal" id="placeDetailModal" tabindex="-1" aria-labelledby="dpName" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0">
+      <button type="button" class="btn-close detail-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      <div class="detail-hero" id="dpThumb"></div>
+
+      <div class="modal-body p-3 p-sm-4">
+        <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+          <h2 class="h4 fw-bold mb-0" id="dpName">Destination name</h2>
+          <button type="button" class="btn btn-fav" id="dpFavBtn"><i class="bi bi-heart"></i></button>
+        </div>
+        <p class="text-secondary mb-3" id="dpTown"><i class="bi bi-geo-alt"></i> Town</p>
+
+        <div class="d-flex flex-wrap gap-1 mb-3" id="dpBadges"></div>
+
+        <!-- Current weather (SCRUM-17: Weather Information) -->
+        <div class="weather-box d-flex align-items-center gap-3 mb-3">
+          <i class="bi fs-2" id="dpWeatherIcon"></i>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-baseline gap-2">
+              <span class="fw-bold fs-5" id="dpWeatherTemp"></span>
+              <span class="small text-secondary" id="dpWeatherCond"></span>
+            </div>
+            <p class="small mb-0" id="dpWeatherTip"></p>
+          </div>
+        </div>
+
+        <p class="mb-3" id="dpBlurb"></p>
+
+        <dl class="detail-list mb-3">
+          <dt>Entrance fee</dt><dd id="dpFee"></dd>
+          <dt>Hours</dt><dd id="dpHours"></dd>
+          <dt>Facilities</dt><dd id="dpFacilities"></dd>
+        </dl>
+
+        <div class="d-grid gap-2">
+          <a href="#" class="btn btn-primary disabled" aria-disabled="true" tabindex="-1" title="Coming soon"><i class="bi bi-signpost-split me-1"></i> Plan a route here <em class="soon-tag ms-1">Coming soon</em></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/theme.js"></script>
+<!-- Success notification (pops after a password / preferences update) -->
+<div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
+
+<script src="js/common.js"></script>
+<script src="js/data.js"></script>
+<script src="js/weather.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
