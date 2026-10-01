@@ -40,11 +40,12 @@ Later features are currently marked as **Coming Soon** and will be developed in 
 - User preferences
 - Home dashboard
 
-### Sprint 2 — Destination Discovery
+### Sprint 2 — Destination Discovery & Administration
 - Destination directory
 - Destination search
 - Destination details
-- Admin destination management
+- Admin privileges
+- Admin destination management (CRUD)
 
 ### Sprint 3 — Route & Weather Planning
 - Route planning
