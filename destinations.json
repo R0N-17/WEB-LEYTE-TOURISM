@@ -1,0 +1,527 @@
+[
+    {
+        "name": "Kalanggaman Island",
+        "town": "Palompon",
+        "cats": [
+            "beach",
+            "nature"
+        ],
+        "area": "rural",
+        "time": [
+            "morning",
+            "afternoon"
+        ],
+        "view": "sunset",
+        "feeAmt": 150,
+        "fee": "₱150 environmental fee",
+        "hours": "6:00 AM – 5:00 PM",
+        "facilities": [
+            "Cottages",
+            "Restrooms",
+            "Boat landing"
+        ],
+        "blurb": "A long white sandbar with clear water on both sides.",
+        "about": "Kalanggaman is a small uninhabited island off Palompon, famous for the two sandbars that stretch out from either end into clear turquoise water. The local government manages visits to protect the island, so it stays clean and uncrowded.",
+        "highlights": [
+            "Twin sandbars that change shape with the tide",
+            "Swimming and snorkeling in clear shallow water",
+            "Picnic and cottage area under the trees",
+            "Sunset views over the Camotes Sea"
+        ],
+        "best": "March to May, when the sea is usually calm. Arrive early for the best light and fewer people.",
+        "getThere": "Take a boat from the Palompon port. The crossing depends on sea conditions, so book through the tourism office.",
+        "tip": "Bring your own food and water, and take your trash back with you. Daily visitor numbers are managed, so book ahead.",
+        "lat": 11.183,
+        "lng": 124.342,
+        "id": "dd4f9b96daa79",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:39:33+02:00",
+        "image": {
+            "file": "dd4f9b96daa79-6ad14815ada0.jpg",
+            "v": 1792100373
+        },
+        "stay": [
+            "full",
+            "overnight"
+        ]
+    },
+    {
+        "name": "Cuatro Islas",
+        "town": "Inopacan",
+        "cats": [
+            "beach",
+            "nature"
+        ],
+        "area": "rural",
+        "time": [
+            "morning",
+            "afternoon"
+        ],
+        "view": "sunset",
+        "feeAmt": 100,
+        "fee": "₱100 environmental fee",
+        "hours": "6:00 AM – 5:00 PM",
+        "facilities": [
+            "Boat landing",
+            "Cottages"
+        ],
+        "blurb": "Small islands with white sand and calm coves for a day trip.",
+        "about": "Cuatro Islas is a group of four islands off Inopacan (Himokilan, Mahaba, Apid and Digyo), each with its own character. Expect white sand, rock formations, clear water and quiet coves ideal for island hopping.",
+        "highlights": [
+            "Island hopping between the four islands",
+            "Snorkeling over coral and clear shallows",
+            "White sand coves for swimming and picnics",
+            "Rock formations and photo spots"
+        ],
+        "best": "Dry, calm months (roughly March to May). Go in the morning when the water is flat.",
+        "getThere": "Travel to Inopacan, then take a boat from the town's landing point. Boats and guides can be arranged locally.",
+        "tip": "Bring sun protection and cash for boat rental and fees. Ask your boatman about weather before setting out.",
+        "lat": 10.43,
+        "lng": 124.68,
+        "id": "d0303d95ed854",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:39:17+02:00",
+        "image": {
+            "file": "d0303d95ed854-6ad14805e300.jpg",
+            "v": 1792100357
+        },
+        "stay": [
+            "full",
+            "overnight"
+        ]
+    },
+    {
+        "name": "Lake Danao Natural Park",
+        "town": "Ormoc City",
+        "cats": [
+            "nature"
+        ],
+        "area": "rural",
+        "time": [
+            "morning",
+            "afternoon"
+        ],
+        "view": null,
+        "feeAmt": 50,
+        "fee": "₱50 entrance fee",
+        "hours": "6:00 AM – 5:00 PM",
+        "facilities": [
+            "Kayak rental",
+            "Cottages",
+            "Parking"
+        ],
+        "blurb": "A guitar-shaped mountain lake with cool air and morning mist.",
+        "about": "Lake Danao sits high in the mountains above Ormoc and is known for its guitar shape. The park is cool, quiet and green, with a calm lake surrounded by forest.",
+        "highlights": [
+            "Kayaking and bamboo raft rides on the lake",
+            "Short forest walks and lakeside picnics",
+            "Cool mountain air and morning mist",
+            "Good for photography at sunrise"
+        ],
+        "best": "Morning, before the mist clears. Dry months give the most reliable weather.",
+        "getThere": "Travel from Ormoc City by road up into the mountains. Motorbikes, vans and hired vehicles make the trip.",
+        "tip": "It gets cool and damp, so bring a light jacket. Weekdays are quieter than weekends.",
+        "lat": 10.9856,
+        "lng": 124.7075,
+        "id": "df36f0609aff7",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:39:49+02:00",
+        "image": {
+            "file": "df36f0609aff7-6ad14825f05d.jpg",
+            "v": 1792100389
+        },
+        "stay": [
+            "half",
+            "full"
+        ]
+    },
+    {
+        "name": "Mahagnao Volcano Natural Park",
+        "town": "Burauen",
+        "cats": [
+            "nature"
+        ],
+        "area": "rural",
+        "time": [
+            "morning"
+        ],
+        "view": null,
+        "feeAmt": 60,
+        "fee": "₱60 entrance fee",
+        "hours": "6:00 AM – 4:00 PM",
+        "facilities": [
+            "Guides available",
+            "Camping area"
+        ],
+        "blurb": "Forest trails around a crater lake.",
+        "about": "Mahagnao is a protected natural park around a dormant volcano in Burauen, with a crater lake and forest trails. It suits hikers and campers who want a quiet, green escape.",
+        "highlights": [
+            "Trail through mossy mountain forest",
+            "Crater lake views",
+            "Camping area for overnight stays",
+            "Guides available on site"
+        ],
+        "best": "Morning, in the dry months. Trails can be slippery after rain.",
+        "getThere": "Travel to Burauen by road, then continue to the park entrance. Ask the park office about guides.",
+        "tip": "Wear shoes with good grip and register at the entrance. Start early so you finish before dark.",
+        "lat": 10.97,
+        "lng": 124.95,
+        "id": "dbdc3b872d07a",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:40:19+02:00",
+        "image": {
+            "file": "dbdc3b872d07a-6ad14843b82d.jpg",
+            "v": 1792100419
+        },
+        "stay": [
+            "full",
+            "overnight"
+        ]
+    },
+    {
+        "name": "Mount Pangasugan",
+        "town": "Baybay City",
+        "cats": [
+            "nature"
+        ],
+        "area": "rural",
+        "time": [
+            "morning"
+        ],
+        "view": null,
+        "feeAmt": 50,
+        "fee": "₱50 registration fee",
+        "hours": "6:00 AM – 3:00 PM",
+        "facilities": [
+            "Guides required",
+            "Camping area"
+        ],
+        "blurb": "A forested mountain in the Leyte range, known for hiking trails.",
+        "about": "Mount Pangasugan rises above Baybay City in the Leyte mountain range. It is a popular hiking destination with forested slopes and cool air.",
+        "highlights": [
+            "Forest hiking trails",
+            "Cooler mountain air",
+            "Views over the surrounding countryside",
+            "Camping for overnight trips"
+        ],
+        "best": "Early morning start in dry weather, so you are off the trail before afternoon rain.",
+        "getThere": "Travel to Baybay City, then continue to the trailhead with a local guide.",
+        "tip": "A guide is required. Bring water, rain protection and a headlamp if you plan to camp.",
+        "lat": 10.75,
+        "lng": 124.83,
+        "id": "da5541c5883cb",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:40:34+02:00",
+        "image": {
+            "file": "da5541c5883cb-6ad148520c14.jpg",
+            "v": 1792100434
+        },
+        "stay": [
+            "full",
+            "overnight"
+        ]
+    },
+    {
+        "name": "San Juanico Bridge",
+        "town": "Tacloban City",
+        "cats": [
+            "landmark"
+        ],
+        "area": "urban",
+        "time": [
+            "morning",
+            "afternoon"
+        ],
+        "view": "sunrise",
+        "feeAmt": 0,
+        "fee": "Free",
+        "hours": "Open 24 hours",
+        "facilities": [
+            "Viewing deck",
+            "Parking"
+        ],
+        "blurb": "The long bridge linking Leyte and Samar, best at first light.",
+        "about": "San Juanico Bridge crosses the San Juanico Strait between Leyte and Samar. At over two kilometers long, it is among the longest bridges in the Philippines and one of the region's best-known landmarks.",
+        "highlights": [
+            "Long crossing between Leyte and Samar",
+            "Sunrise photos over the strait",
+            "Viewing deck near the Tacloban side",
+            "Free to visit at any hour"
+        ],
+        "best": "Sunrise or late afternoon, when the light is soft and the heat is lower.",
+        "getThere": "Take a jeepney, tricycle or taxi from Tacloban City toward the bridge. Parking is available near the viewing deck.",
+        "tip": "Take care near the road and watch for traffic. Go at first light for the best photos.",
+        "lat": 11.296,
+        "lng": 124.98,
+        "id": "dbbb27824cca7",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:41:29+02:00",
+        "image": {
+            "file": "dbbb27824cca7-6ad148891d4a.jpg",
+            "v": 1792100489
+        },
+        "stay": [
+            "half"
+        ]
+    },
+    {
+        "name": "MacArthur Landing Memorial National Park",
+        "town": "Palo",
+        "cats": [
+            "history",
+            "landmark"
+        ],
+        "area": "urban",
+        "time": [
+            "morning",
+            "afternoon"
+        ],
+        "view": "sunrise",
+        "feeAmt": 20,
+        "fee": "₱20 entrance fee",
+        "hours": "8:00 AM – 5:00 PM",
+        "facilities": [
+            "Parking",
+            "Restrooms",
+            "Souvenir shops"
+        ],
+        "blurb": "Statues on the shore of Leyte Gulf mark the 1944 landing.",
+        "about": "This park in Palo marks the place where General Douglas MacArthur and Philippine leaders waded ashore on October 20, 1944, starting the liberation of the country. Life-size statues show the moment on the shore of Leyte Gulf.",
+        "highlights": [
+            "Life-size statues of the 1944 landing",
+            "Shoreline views over Leyte Gulf",
+            "Historical markers and souvenir shops",
+            "Close to Palo Metropolitan Cathedral"
+        ],
+        "best": "Morning, before the heat builds. October 20 is the anniversary of the landing.",
+        "getThere": "Palo is a short ride south of Tacloban City by jeepney, van or tricycle.",
+        "tip": "Pair it with Palo Metropolitan Cathedral for a half-day history trip.",
+        "lat": 11.15,
+        "lng": 125.01,
+        "id": "df64b3175dbe4",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:40:07+02:00",
+        "image": {
+            "file": "df64b3175dbe4-6ad14837d3ca.jpg",
+            "v": 1792100407
+        },
+        "stay": [
+            "half"
+        ]
+    },
+    {
+        "name": "Palo Metropolitan Cathedral",
+        "town": "Palo",
+        "cats": [
+            "history"
+        ],
+        "area": "urban",
+        "time": [
+            "morning",
+            "afternoon"
+        ],
+        "view": null,
+        "feeAmt": 0,
+        "fee": "Free",
+        "hours": "6:00 AM – 6:00 PM",
+        "facilities": [
+            "Parking",
+            "Restrooms"
+        ],
+        "blurb": "A centuries-old church in Palo, close to the landing memorial.",
+        "about": "Palo Metropolitan Cathedral is a centuries-old church at the center of Palo. It was used as a field hospital during the 1944 Leyte campaign and remains an active place of worship.",
+        "highlights": [
+            "Historic church with a long local history",
+            "Plaza for a slow walk",
+            "Links to the 1944 Leyte campaign",
+            "Near the MacArthur Landing memorial"
+        ],
+        "best": "Morning or late afternoon. Check mass times if you want to see the interior quietly.",
+        "getThere": "In Palo town center, a short ride from Tacloban City by jeepney or tricycle.",
+        "tip": "Dress modestly and keep quiet during services.",
+        "lat": 11.158,
+        "lng": 124.99,
+        "id": "d4a286154b4c9",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:41:03+02:00",
+        "image": {
+            "file": "d4a286154b4c9-6ad1486f89bc.jpg",
+            "v": 1792100463
+        },
+        "stay": [
+            "half"
+        ]
+    },
+    {
+        "name": "Santo Niño Shrine and Heritage Museum",
+        "town": "Tacloban City",
+        "cats": [
+            "history"
+        ],
+        "area": "urban",
+        "time": [
+            "morning",
+            "afternoon"
+        ],
+        "view": null,
+        "feeAmt": 75,
+        "fee": "₱75 entrance fee",
+        "hours": "9:00 AM – 5:00 PM, closed Mondays",
+        "facilities": [
+            "Guided tours",
+            "Restrooms",
+            "Gift shop"
+        ],
+        "blurb": "A heritage museum and shrine in the city center.",
+        "about": "This grand building in Tacloban City houses a museum of art, antiques and heritage displays, along with a collection of Santo Niño images. It is known for its large, ornate interiors.",
+        "highlights": [
+            "Grand interiors and chandeliers",
+            "Art and antique displays",
+            "Santo Niño collection",
+            "Guided tours"
+        ],
+        "best": "Weekday mornings for a quieter visit. The museum is closed on Mondays.",
+        "getThere": "In Tacloban City, reachable by tricycle or taxi from the city center.",
+        "tip": "Ask for a guided tour to get the stories behind the collection.",
+        "lat": 11.242,
+        "lng": 125.006,
+        "id": "da02a54f3e1da",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:42:08+02:00",
+        "image": {
+            "file": "da02a54f3e1da-6ad148b0408a.jpg",
+            "v": 1792100528
+        },
+        "stay": [
+            "half"
+        ]
+    },
+    {
+        "name": "Price Mansion",
+        "town": "Tacloban City",
+        "cats": [
+            "history"
+        ],
+        "area": "urban",
+        "time": [
+            "morning",
+            "afternoon"
+        ],
+        "view": null,
+        "feeAmt": 50,
+        "fee": "₱50 entrance fee",
+        "hours": "9:00 AM – 5:00 PM, closed Mondays",
+        "facilities": [
+            "Guided tours",
+            "Restrooms"
+        ],
+        "blurb": "A historic mansion in Tacloban tied to the 1944 Leyte campaign.",
+        "about": "Price Mansion is a historic house in Tacloban City built in the early 1900s. It is linked to the 1944 Leyte campaign, when American forces used it as a headquarters.",
+        "highlights": [
+            "Early 20th century architecture",
+            "Links to the 1944 liberation campaign",
+            "Guided tours of the house",
+            "Short visit close to other city sights"
+        ],
+        "best": "Weekday mornings. Closed on Mondays.",
+        "getThere": "In Tacloban City, a short tricycle or taxi ride from the center.",
+        "tip": "Combine it with the Santo Niño Shrine for a city heritage tour.",
+        "lat": 11.245,
+        "lng": 125.004,
+        "id": "d7884a66f9592",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:41:14+02:00",
+        "image": {
+            "file": "d7884a66f9592-6ad1487a0ec9.jpg",
+            "v": 1792100474
+        },
+        "stay": [
+            "half"
+        ]
+    },
+    {
+        "name": "Ormoc City Boulevard",
+        "town": "Ormoc City",
+        "cats": [
+            "landmark"
+        ],
+        "area": "urban",
+        "time": [
+            "afternoon",
+            "evening"
+        ],
+        "view": "sunset",
+        "feeAmt": 0,
+        "fee": "Free",
+        "hours": "Open 24 hours",
+        "facilities": [
+            "Food stalls",
+            "Parking",
+            "Benches"
+        ],
+        "blurb": "A seaside promenade on Ormoc Bay for an evening walk.",
+        "about": "Ormoc City Boulevard is a seaside promenade along Ormoc Bay. Locals come here in the late afternoon to walk, eat street food and watch the sun set over the water.",
+        "highlights": [
+            "Sunset views over Ormoc Bay",
+            "Food stalls along the promenade",
+            "Benches for a relaxed evening",
+            "Free and open 24 hours"
+        ],
+        "best": "Late afternoon into evening, when the air cools and the sky turns gold.",
+        "getThere": "In Ormoc City, a short tricycle ride from the city center.",
+        "tip": "Bring small change for street food and arrive about an hour before sunset.",
+        "lat": 11.006,
+        "lng": 124.607,
+        "id": "de118a4f1c933",
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-15T23:40:47+02:00",
+        "image": {
+            "file": "de118a4f1c933-6ad1485fdc28.jpg",
+            "v": 1792100447
+        },
+        "stay": [
+            "half"
+        ]
+    },
+    {
+        "name": "Victor’s Peak",
+        "town": "Tacloban City, Leyte",
+        "cats": [
+            "nature",
+            "landmark"
+        ],
+        "area": "urban",
+        "time": [
+            "morning"
+        ],
+        "view": "sunrise",
+        "feeAmt": 0,
+        "fee": "Free",
+        "hours": "5:00 AM – 6:00 PM",
+        "facilities": [
+            "• Natural shade canopies",
+            "• Earthen trails",
+            "• Resting benches"
+        ],
+        "blurb": "A scenic, beginner-friendly day hike offering a panoramic view of Tacloban City and the iconic San Juanico Strait.",
+        "about": "As the highest peak structure fully nestled within the city limits, Victor’s Peak stands at approximately 335 meters above sea level. It provides a fantastic escape for outdoor enthusiasts seeking an immediate inland nature retreat. The forested trails are rich with shade-giving trees, leading hikers up to a ridge summit that commands sweeping views over the urban cityscape, rolling hills, and the historic waters below. It is famously scaled as a standalone day trek or as part of the popular \"Tacloban Tri-Peak\" traverse alongside Mt. Carmel and Mt. Naga-Naga.",
+        "highlights": [
+            "• Panoramic summit views of the San Juanico Strait",
+            "• Expansive urban landscape view overlooking Tacloban City",
+            "• Shaded, tree-covered forest path walk",
+            "• Connecting ridge trails for a multi-mountain trilogy hike"
+        ],
+        "best": "",
+        "getThere": "• By Public Transit / Commute: From downtown Tacloban, ride an Apitong-bound jeepney or hail a local tricycle/motorcycle taxi and ask to be dropped off along the Brgy. Apitong Bypass Road near the Smashzone curve. • Trailheads: The main direct trailhead starts just past the curve on the left side of the bypass road. Alternatively, seasoned hikers can access it via a back-trail traverse starting from Mt. Carmel or the Mt. Naga-Naga trailhead.",
+        "tip": "• Wear proper footwear: The trail can be steep or slick, so sturdy trail shoes or hiking sandals with good grip are highly recommended. • Mind the wildlife: The mountain's native name (Mt. Tubakon) references the local inch-long ants found near the summit flora, so stay mindful of where you step or sit! • Hydration: Bring at least 1–2 liters of water since there are no commercial convenience stalls along the direct trail climb. • Leave No Trace: Ensure you pack out all trash to help preserve the",
+        "lat": 11.2153,
+        "lng": 124.9826,
+        "id": "dd3080c4a6264",
+        "created": "2026-10-15T16:00:35+02:00",
+        "updated": "2026-10-15T23:42:19+02:00",
+        "image": {
+            "file": "dd3080c4a6264-6ad148bbfd9d.jpg",
+            "v": 1792100539
+        }
+    }
+]
