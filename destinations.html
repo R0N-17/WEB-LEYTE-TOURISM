@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <script src="../js/theme-init.js"></script>
+  <title>Destinations · KYR Web Tourism Admin</title>
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="../css/fonts.css" rel="stylesheet">
+  <link href="css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body auth-pending" data-no-theme-fab>
+<div class="ad-shell">
+  <aside class="ad-side" id="adSide" aria-label="Admin navigation"></aside>
+  <div class="ad-scrim" id="adScrim"></div>
+  <div class="ad-main">
+    <header class="ad-top" id="adTop"></header>
+    <main class="ad-content" id="main">
+      <div class="ad-page-head">
+        <div>
+          <h1>Destinations</h1>
+          <p>Add, edit and remove the places shown on the public website. Changes, including photos, appear for every visitor right away.</p>
+        </div>
+        <div class="ad-actions-top"><button type="button" class="btn btn-ad" id="addBtn"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Add destination</button></div>
+      </div>
+
+      <!-- Search + category filter -->
+      <div class="ad-card ad-toolbar">
+        <div class="row g-2 align-items-center">
+          <div class="col-12 col-lg-4">
+            <div class="ad-search"><i class="bi bi-search" aria-hidden="true"></i>
+              <input type="search" class="form-control" id="searchBox" placeholder="Search by name or town" aria-label="Search destinations by name or town" autocomplete="off"></div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <select class="form-select" id="catFilter" aria-label="Filter by category"><option value="">All categories</option></select>
+          </div>
+          <div class="col-6 col-lg-3">
+            <select class="form-select" id="qualityFilter" aria-label="Filter by data check">
+              <option value="">All destinations</option>
+              <option value="no-photo">Missing a photo</option>
+              <option value="has-photo">Has a photo</option>
+              <option value="no-coords">Missing coordinates</option>
+              <option value="no-category">No valid category</option>
+              <option value="incomplete">Missing required details</option>
+            </select>
+          </div>
+          <div class="col-12 col-lg-auto"><button type="button" class="btn btn-outline-secondary w-100" id="clearBtn">Clear</button></div>
+          <div class="col-12 col-lg text-lg-end small text-secondary" id="countNote" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div id="listError" class="alert alert-danger d-none" role="alert"></div>
+
+      <div class="ad-card"><div class="table-responsive">
+        <table class="table ad-table ad-table-stack align-middle">
+          <thead><tr><th scope="col">Destination</th><th scope="col">Location</th><th scope="col">Categories</th><th scope="col">Entrance fee</th><th scope="col" class="d-none d-xl-table-cell">Updated</th><th scope="col" class="text-md-end">Actions</th></tr></thead>
+          <tbody id="rows">
+            <tr><td colspan="6"><div class="d-flex align-items-center gap-3"><span class="ad-skel thumb"></span><span class="ad-skel" style="width:30%"></span></div></td></tr>
+            <tr><td colspan="6"><div class="d-flex align-items-center gap-3"><span class="ad-skel thumb"></span><span class="ad-skel" style="width:24%"></span></div></td></tr>
+            <tr><td colspan="6"><div class="d-flex align-items-center gap-3"><span class="ad-skel thumb"></span><span class="ad-skel" style="width:34%"></span></div></td></tr>
+          </tbody>
+        </table>
+      </div></div>
+    </main>
+  </div>
+</div>
+
+<!-- View -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable"><div class="modal-content">
+    <div class="modal-header"><div><h2 class="modal-title" id="viewTitle">Destination</h2><p class="modal-desc">Everything saved for this destination.</p></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+    <div class="modal-body" id="viewBody"></div>
+    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button><button type="button" class="btn btn-ad" id="viewEditBtn"><i class="bi bi-pencil-square me-1" aria-hidden="true"></i>Edit</button></div>
+  </div></div>
+</div>
+
+<!-- Add / Edit -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formTitle" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable"><div class="modal-content">
+    <form id="destForm" novalidate>
+      <div class="modal-header"><div><h2 class="modal-title" id="formTitle">Add destination</h2><p class="modal-desc" id="formDesc">Fields marked with * are required.</p></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body">
+        <div id="formError" class="alert alert-danger d-none" role="alert"></div>
+
+        <section class="ad-fsec" aria-labelledby="secBasic">
+          <div class="ad-fsec-head"><h3 id="secBasic">Basic information</h3><p>What visitors read first.</p></div>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label req" for="fName">Destination name</label><input class="form-control" id="fName" maxlength="100" placeholder="e.g. Kalanggaman Island" required>
+              <div class="form-text">Renaming a destination keeps its photo.</div><div class="invalid-feedback">Enter the destination name.</div></div>
+            <div class="col-md-6"><label class="form-label req" for="fBlurb">Short description</label><input class="form-control" id="fBlurb" maxlength="200" placeholder="One sentence shown on cards" required>
+              <div class="form-text">Shown on cards, up to 200 characters.</div><div class="invalid-feedback">Enter a short description.</div></div>
+            <div class="col-12"><label class="form-label req" for="fAbout">Full description</label><textarea class="form-control" id="fAbout" rows="4" maxlength="2000" placeholder="Tell visitors what makes this place worth a visit" required></textarea><div class="invalid-feedback">Enter the full description.</div></div>
+          </div>
+        </section>
+
+        <section class="ad-fsec" aria-labelledby="secLoc">
+          <div class="ad-fsec-head"><h3 id="secLoc">Location</h3><p>Where it is and how to get there. The coordinates are also used to fetch live weather automatically.</p></div>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label req" for="fTown">Town or city</label><input class="form-control" id="fTown" maxlength="100" placeholder="e.g. Palompon" required><div class="invalid-feedback">Enter the town or city.</div></div>
+            <div class="col-md-6"><label class="form-label req" for="fArea">Setting</label>
+              <select class="form-select" id="fArea" required><option value="urban">Urban (city or town center)</option><option value="rural">Rural (countryside, islands, mountains)</option></select></div>
+            <div class="col-md-3"><label class="form-label req" for="fLat">Latitude</label><input class="form-control" type="number" id="fLat" min="-90" max="90" step="any" placeholder="11.1830" required><div class="invalid-feedback">Latitude between -90 and 90.</div></div>
+            <div class="col-md-3"><label class="form-label req" for="fLng">Longitude</label><input class="form-control" type="number" id="fLng" min="-180" max="180" step="any" placeholder="124.3420" required><div class="invalid-feedback">Longitude between -180 and 180.</div></div>
+            <div class="col-md-6 form-text align-self-end mb-2">In Google Maps, right-click the spot and click the numbers to copy them.</div>
+            <div class="col-12"><label class="form-label" for="fGetThere">How to get there</label><textarea class="form-control" id="fGetThere" rows="3" maxlength="500" placeholder="Directions, transport options, nearest port or terminal"></textarea></div>
+            <div class="col-12">
+              <div class="ad-wx" id="wxPreview" aria-live="polite"><i class="bi bi-cloud-sun" aria-hidden="true"></i><div><div class="t">Live weather</div><div class="s" id="wxText">Fetched automatically from OpenWeather for these coordinates. You never type weather in by hand.</div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ad-fsec" aria-labelledby="secCat">
+          <div class="ad-fsec-head"><h3 id="secCat">Categories</h3><p>These decide where the place shows up in filters and recommendations.</p></div>
+          <span class="form-label req d-block" id="catLbl">Categories</span><div id="fCats" class="ad-checks" role="group" aria-labelledby="catLbl"></div><div class="form-text">Choose at least one.</div>
+          <button type="button" class="btn btn-sm btn-outline-secondary mt-2" id="newCatToggle" aria-expanded="false" aria-controls="newCatBox"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>New category</button>
+          <div class="ad-newcat d-none" id="newCatBox">
+            <div id="newCatError" class="alert alert-danger py-2 small d-none" role="alert"></div>
+            <label class="form-label" for="nLabel">Category name</label>
+            <input class="form-control mb-3" id="nLabel" maxlength="40" autocomplete="off" placeholder="e.g. Food &amp; markets">
+            <span class="form-label d-block">Icon</span><div class="ad-icons mb-3" id="nIcons"></div>
+            <div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="nOutdoor"><label class="form-check-label" for="nOutdoor">Outdoor category <span class="text-secondary small">(rain and rough-sea warnings apply)</span></label></div>
+            <button type="button" class="btn btn-ad btn-sm" id="nAdd">Add category</button>
+            <button type="button" class="btn btn-link btn-sm" id="nCancel">Cancel</button>
+          </div>
+        </section>
+
+        <section class="ad-fsec" aria-labelledby="secVisit">
+          <div class="ad-fsec-head"><h3 id="secVisit">Visitor information</h3><p>Fees, hours and what the place offers.</p></div>
+          <div class="row g-3">
+            <div class="col-md-4"><label class="form-label req" for="fFeeAmt">Entrance fee (₱)</label><input class="form-control" type="number" id="fFeeAmt" min="0" max="100000" step="1" placeholder="0" required>
+              <div class="form-text">Use 0 for free. Used for budget matching.</div><div class="invalid-feedback">Enter the fee, or 0 for free.</div></div>
+            <div class="col-md-8"><label class="form-label" for="fFee">Fee label shown to visitors</label><input class="form-control" id="fFee" maxlength="100" placeholder="₱150 environmental fee">
+              <div class="form-text">Optional. Left empty, it becomes “Free” or “₱&lt;amount&gt; entrance fee”.</div></div>
+            <div class="col-md-6"><label class="form-label req" for="fHours">Opening hours</label><input class="form-control" id="fHours" maxlength="100" placeholder="6:00 AM – 5:00 PM" required><div class="invalid-feedback">Enter the opening hours.</div></div>
+            <div class="col-md-6"><label class="form-label" for="fBest">Best time to visit</label><input class="form-control" id="fBest" maxlength="500" placeholder="e.g. March to May"></div>
+            <div class="col-12"><label class="form-label" for="fFacilities">Facilities</label><textarea class="form-control" id="fFacilities" rows="3" placeholder="One per line: Cottages&#10;Restrooms&#10;Parking"></textarea></div>
+          </div>
+        </section>
+
+        <section class="ad-fsec" aria-labelledby="secGuide">
+          <div class="ad-fsec-head"><h3 id="secGuide">Visiting guidance <span class="ad-opt">Optional</span></h3>
+            <p>About the place itself, not about a visitor. Used to describe the best time to go. Leave empty if it doesn't apply.</p></div>
+          <div class="row g-3">
+            <div class="col-md-6"><span class="form-label d-block" id="timeLbl">Suggested time of day</span><div id="fTimes" class="ad-checks" role="group" aria-labelledby="timeLbl"></div><div class="form-text">When this place is usually best to visit.</div></div>
+            <div class="col-md-6"><label class="form-label" for="fView">Sunrise or sunset spot</label>
+              <select class="form-select" id="fView"><option value="">None</option><option value="sunrise">Good sunrise spot</option><option value="sunset">Good sunset spot</option></select></div>
+          </div>
+        </section>
+
+        <section class="ad-fsec" aria-labelledby="secHi">
+          <div class="ad-fsec-head"><h3 id="secHi">Destination details and tips</h3><p>Optional details that make the profile useful.</p></div>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label" for="fHighlights">Highlights</label><textarea class="form-control" id="fHighlights" rows="4" placeholder="One per line (up to 10)"></textarea></div>
+            <div class="col-md-6"><label class="form-label" for="fTip">Travel tips</label><textarea class="form-control" id="fTip" rows="4" maxlength="500" placeholder="What to bring, what to know before going"></textarea></div>
+          </div>
+        </section>
+
+        <section class="ad-fsec" aria-labelledby="secPhoto">
+          <div class="ad-fsec-head"><h3 id="secPhoto">Photo</h3><p>One photo per destination. Replacing it updates every place the destination appears on the website.</p></div>
+          <div class="row g-3 align-items-start">
+            <div class="col-md-4">
+              <div class="ad-photo-state" id="photoState"><i class="bi bi-image" aria-hidden="true"></i><span>No photo yet</span></div>
+              <img class="ad-photo-prev d-none" id="photoPrev" alt="Photo preview">
+              <div class="ad-photo-prev ad-photo-empty" id="photoNone"><span><i class="bi bi-image" aria-hidden="true"></i>No photo</span></div>
+            </div>
+            <div class="col-md-8">
+              <span class="form-label d-block" id="photoLabel">Upload a photo</span>
+              <label class="ad-drop position-relative" id="photoDrop" for="fPhoto">
+                <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+                <div class="t"><u>Choose a file</u> or drag it here</div>
+                <div class="s">JPG, PNG, WebP or AVIF, up to 3 MB and 8000 px</div>
+                <input type="file" id="fPhoto" accept="image/jpeg,image/png,image/webp,image/avif" aria-describedby="photoLabel photoName">
+              </label>
+              <div class="ad-fname d-none" id="photoName"></div>
+              <div class="form-check mt-3 d-none" id="removeWrap"><input class="form-check-input" type="checkbox" id="fRemovePhoto"><label class="form-check-label" for="fRemovePhoto">Remove the current photo</label></div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-ad" id="saveBtn">Save destination</button>
+      </div>
+    </form>
+  </div></div>
+</div>
+
+<!-- Delete confirmation -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+    <div class="modal-body p-4">
+      <div class="ad-confirm"><span class="ring"><i class="bi bi-trash3" aria-hidden="true"></i></span>
+        <h2 id="deleteTitle">Delete this destination?</h2>
+        <p class="mb-1">You are about to delete <strong id="deleteName"></strong>.</p>
+        <p class="small text-secondary mb-3">It disappears from the public website right away. Its photo is kept in a private folder on the server. This cannot be undone from the admin console.</p></div>
+      <div id="deleteError" class="alert alert-danger small d-none" role="alert"></div>
+      <div class="d-flex gap-2 justify-content-end">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Keep it</button>
+        <button type="button" class="btn btn-danger" id="confirmDelete"><i class="bi bi-trash3 me-1" aria-hidden="true"></i>Yes, delete</button>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/theme.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/destinations.js"></script>
+</body>
+</html>

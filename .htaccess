@@ -1,0 +1,15 @@
+# SCRUM-16: this folder only ever holds photos. Never run anything from it, even if a script were uploaded by mistake.
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+  php_flag engine off
+</IfModule>
+RemoveHandler .php .phtml .phar
+<FilesMatch "(?i)\.(php[0-9]?|phtml|phar|pl|py|cgi|sh|exe|js|html?)$">
+  Require all denied
+</FilesMatch>
+Options -ExecCGI -Indexes

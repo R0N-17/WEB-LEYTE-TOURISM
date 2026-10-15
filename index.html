@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <script src="../js/theme-init.js"></script>
+  <title>Dashboard · KYR Web Tourism Admin</title>
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="../css/fonts.css" rel="stylesheet">
+  <link href="css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body auth-pending" data-no-theme-fab>
+<div class="ad-shell">
+  <aside class="ad-side" id="adSide" aria-label="Admin navigation"></aside>
+  <div class="ad-scrim" id="adScrim"></div>
+  <div class="ad-main">
+    <header class="ad-top" id="adTop"></header>
+    <main class="ad-content" id="main">
+
+      <div class="ad-page-head">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Welcome back, <b id="greetName">admin</b>. Manage your destinations and tourism content.</p>
+        </div>
+        <div class="ad-actions-top">
+          <span class="ad-status" id="wxStatus" role="status">Weather service: checking…</span>
+          <a href="destinations.html?add=1" class="btn btn-ad"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Add destination</a>
+        </div>
+      </div>
+
+      <div id="statsError" class="alert alert-danger d-none" role="alert"></div>
+
+      <div class="row g-3 mb-4" id="statCards">
+        <div class="col-6 col-xl-4"><a class="ad-card ad-stat ad-stat-link" href="destinations.html"><span class="ico"><i class="bi bi-geo-alt" aria-hidden="true"></i></span><div><div class="lbl">Total destinations</div><div class="num" id="sTotal">–</div></div></a></div>
+        <div class="col-6 col-xl-4"><div class="ad-card ad-stat"><span class="ico"><i class="bi bi-buildings" aria-hidden="true"></i></span><div><div class="lbl">Towns and cities</div><div class="num" id="sTowns">–</div></div></div></div>
+        <div class="col-12 col-xl-4"><a class="ad-card ad-stat ad-stat-link ok" href="destinations.html?filter=has-photo" id="photoStat"><span class="ico"><i class="bi bi-image" aria-hidden="true"></i></span><div><div class="lbl">With photos</div><div class="num" id="sPhoto">–</div></div></a></div>
+      </div>
+
+      <div class="row g-3 mb-4 align-items-start">
+        <div class="col-lg-6">
+          <div class="ad-card">
+            <div class="ad-card-head">Destinations by category</div>
+            <div class="ad-card-body" id="catBars"><span class="ad-skel mb-3" style="width:70%"></span><span class="ad-skel mb-3" style="width:55%"></span><span class="ad-skel" style="width:62%"></span></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="ad-card">
+            <div class="ad-card-head">Recently updated <a href="destinations.html" class="more">Manage all</a></div>
+            <ul class="ad-recent" id="recentList"><li class="p-3"><span class="ad-skel mb-2" style="width:60%"></span><span class="ad-skel" style="width:40%"></span></li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-card">
+        <div class="ad-card-head">Needs attention <small id="attnNote"></small></div>
+        <div id="attnBody"><div class="p-3"><span class="ad-skel" style="width:50%"></span></div></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/theme.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

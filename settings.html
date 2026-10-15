@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <script src="../js/theme-init.js"></script>
+  <title>Settings · KYR Web Tourism Admin</title>
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="../css/fonts.css" rel="stylesheet">
+  <link href="css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body auth-pending" data-no-theme-fab>
+<div class="ad-shell">
+  <aside class="ad-side" id="adSide" aria-label="Admin navigation"></aside>
+  <div class="ad-scrim" id="adScrim"></div>
+  <div class="ad-main">
+    <header class="ad-top" id="adTop"></header>
+    <main class="ad-content" id="main">
+
+      <div class="ad-page-head">
+        <div>
+          <h1>Settings</h1>
+          <p>Choose how the console looks, check which administrator account you are using, and see details about the application.</p>
+        </div>
+      </div>
+
+      <div class="row g-3 align-items-start">
+
+        <!-- Appearance -->
+        <div class="col-12 col-xl-6">
+          <section class="ad-card" aria-labelledby="hAppearance">
+            <h2 class="ad-card-head" id="hAppearance"><i class="bi bi-palette" aria-hidden="true"></i>Appearance</h2>
+            <div class="ad-card-body">
+              <p class="ad-set-help" id="themeHelp">Pick Light or Dark. The change applies immediately, to this console and to the public site, and is remembered on this browser.</p>
+              <div class="ad-theme-choices" role="group" aria-labelledby="hAppearance" aria-describedby="themeHelp">
+                <button type="button" class="ad-theme-choice" data-theme-mode="light" aria-pressed="false">
+                  <span class="prev prev-light" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="lbl"><i class="bi bi-sun" aria-hidden="true"></i>Light</span>
+                  <span class="state">Selected</span>
+                </button>
+                <button type="button" class="ad-theme-choice" data-theme-mode="dark" aria-pressed="false">
+                  <span class="prev prev-dark" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="lbl"><i class="bi bi-moon-stars" aria-hidden="true"></i>Dark</span>
+                  <span class="state">Selected</span>
+                </button>
+              </div>
+              <p class="ad-set-note mb-0" id="themeStatus" role="status" aria-live="polite">Loading…</p>
+            </div>
+          </section>
+        </div>
+
+        <!-- Account information -->
+        <div class="col-12 col-xl-6">
+          <section class="ad-card" aria-labelledby="hAccount">
+            <h2 class="ad-card-head" id="hAccount"><i class="bi bi-person-badge" aria-hidden="true"></i>Account information</h2>
+            <div class="ad-card-body" id="accountBody" aria-live="polite" aria-busy="true">
+              <span class="ad-skel mb-3" style="width:55%"></span><span class="ad-skel mb-3" style="width:70%"></span><span class="ad-skel" style="width:40%"></span>
+            </div>
+          </section>
+        </div>
+
+        <!-- Application information -->
+        <div class="col-12">
+          <section class="ad-card" aria-labelledby="hApp">
+            <h2 class="ad-card-head" id="hApp"><i class="bi bi-info-circle" aria-hidden="true"></i>Application information</h2>
+            <div class="ad-card-body">
+              <dl class="ad-info-grid mb-0">
+                <div><dt>Application name</dt><dd>Leyte Tourism Guide</dd></div>
+                <div><dt>Version</dt><dd class="ad-unspec">Beta Version</dd></div>
+                <div class="wide"><dt>Purpose</dt><dd>Helps visitors discover and plan trips to selected destinations in Leyte Province. Administrators manage the destinations and categories shown on the public site.</dd></div>
+                <div><dt>Project type</dt><dd>Student Project (as stated in the <a href="../terms.html" target="_blank" rel="noopener">Terms of Use</a>)</dd></div>
+                <div><dt>Project proponents</dt><dd>Cabacaba, Yester A.; Salceda, Ronnel L., Jr.; Gacita, Klyde Theo</dd></div>
+              </dl>
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/theme.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>

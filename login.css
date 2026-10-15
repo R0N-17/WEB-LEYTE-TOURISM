@@ -1,0 +1,83 @@
+/* Admin sign-in page only (loaded by admin/login.html and nowhere else).
+   Self-contained on purpose: it does NOT rely on Bootstrap, so the page looks right even if ../vendor/ is not served.
+   Same palette as admin.css (navy, one blue accent, cool off-white). Every rule is scoped under .ad-login. */
+body.admin-body { margin: 0; background: var(--ad-bg, #F6F8FB); }
+.ad-login {
+  --lg-ink: #1B2433; --lg-muted: #5F6B7C; --lg-line: #D5DBE5; --lg-navy: #0F2447; --lg-navy-d: #0A1A36;
+  --lg-accent: #2563EB; --lg-accent-d: #1D4FC4; --lg-accent-soft: #EAF1FF; --lg-danger: #C62F2F;
+  --lg-surface: #fff; --lg-card-line: #E5E9F0; --lg-hover: #F1F4F9; --lg-glow: #E4ECFB; --lg-page: #F6F8FB; --lg-faint: #8A94A4; --lg-btn: #0F2447; --lg-btn-d: #0A1A36;
+  min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 1.5rem 1rem;
+  background: radial-gradient(48rem 24rem at 50% -8rem, var(--lg-glow) 0, transparent 70%), var(--lg-page);
+  font-family: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: .95rem; line-height: 1.5; color: var(--lg-ink);
+  -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;
+}
+.ad-login *, .ad-login *::before, .ad-login *::after { box-sizing: border-box; }
+.ad-login .ad-login-card { width: 100%; max-width: 25rem; background: var(--lg-surface); border: 1px solid var(--lg-card-line); border-radius: 16px; padding: 2.25rem 2rem 2rem; box-shadow: 0 1px 2px rgba(15, 36, 71, .04), 0 24px 48px -24px rgba(15, 36, 71, .22); }
+
+.ad-login .lg-brand { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.75rem; }
+.ad-login .lg-logo { display: inline-flex; align-items: center; gap: .6rem; }
+.ad-login .lg-logo img { width: 2.1rem; height: 2.1rem; border-radius: 9px; flex: none; }
+.ad-login .lg-logo-text { font-weight: 700; font-size: 1.05rem; letter-spacing: -.01em; line-height: 1.1; }
+.ad-login .badge-admin { margin-left: auto; display: inline-block; background: var(--lg-accent-soft); color: var(--lg-accent-d); font-weight: 600; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; padding: .25rem .6rem; border-radius: 99px; white-space: nowrap; }
+.ad-login h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; margin: 0 0 .35rem; color: var(--lg-ink); }
+.ad-login .lg-sub { margin: 0 0 1.5rem; color: var(--lg-muted); font-size: .92rem; }
+
+.ad-login .d-none { display: none !important; }
+.ad-login .alert { margin: 0 0 1.25rem; padding: .7rem .9rem; border: 1px solid transparent; border-radius: 10px; font-size: .88rem; line-height: 1.4; }
+.ad-login .alert-danger  { background: var(--lg-a-danger-bg, #FDECEC); border-color: var(--lg-a-danger-line, #F2C4C4); color: var(--lg-a-danger, #8E2020); }
+.ad-login .alert-warning { background: var(--lg-a-warn-bg, #FFF4DC); border-color: var(--lg-a-warn-line, #F1DBA6); color: var(--lg-a-warn, #7A4F00); }
+.ad-login .alert-info    { background: var(--lg-a-info-bg, #EAF1FF); border-color: var(--lg-a-info-line, #C9DAFA); color: var(--lg-a-info, #1A3E96); }
+
+.ad-login .lg-field { margin-bottom: 1.1rem; }
+.ad-login .lg-label { display: block; margin: 0 0 .4rem; font-weight: 600; font-size: .85rem; }
+.ad-login .lg-wrap { position: relative; }
+.ad-login .lg-input { display: block; width: 100%; height: 2.8rem; padding: .6rem .85rem; font: inherit; font-size: 1rem; color: var(--lg-ink); background: var(--lg-surface); border: 1px solid var(--lg-line); border-radius: 9px; transition: border-color .15s, box-shadow .15s; appearance: none; -webkit-appearance: none; }
+.ad-login .lg-input::placeholder { color: var(--lg-faint); }
+.ad-login .lg-input:hover { border-color: var(--lg-faint); }
+.ad-login .lg-input:focus { outline: 0; border-color: var(--lg-accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, .25); }
+.ad-login .lg-input[aria-invalid="true"] { border-color: var(--lg-danger); }
+.ad-login .lg-input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px rgba(198, 47, 47, .2); }
+.ad-login .lg-wrap .lg-input { padding-right: 3rem; }
+.ad-login .lg-toggle { position: absolute; right: .3rem; top: 50%; transform: translateY(-50%); width: 2.4rem; height: 2.4rem; display: grid; place-items: center; border: 0; background: transparent; color: var(--lg-muted); border-radius: 8px; cursor: pointer; }
+.ad-login .lg-toggle:hover { color: var(--lg-ink); background: var(--lg-hover); }
+.ad-login .lg-toggle:focus-visible { outline: 0; box-shadow: 0 0 0 3px rgba(37, 99, 235, .25); }
+.ad-login .lg-toggle svg { width: 1.15rem; height: 1.15rem; }
+.ad-login .lg-err { margin: .35rem 0 0; font-size: .8rem; color: var(--lg-danger); }
+
+.ad-login .lg-btn { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 2.8rem; margin-top: 1.4rem; padding: .6rem 1rem; font: inherit; font-weight: 600; font-size: .98rem; color: #fff; background: var(--lg-btn); border: 1px solid var(--lg-btn); border-radius: 9px; cursor: pointer; transition: background-color .15s, border-color .15s, box-shadow .15s; }
+.ad-login .lg-btn:hover { background: var(--lg-btn-d); border-color: var(--lg-btn-d); }
+.ad-login .lg-btn:focus-visible { outline: 0; box-shadow: 0 0 0 3px rgba(37, 99, 235, .35); }
+.ad-login .lg-btn:disabled { opacity: .65; cursor: not-allowed; }
+.ad-login .spinner-border { display: inline-block; width: 1rem; height: 1rem; margin-right: .5rem; border: .15em solid currentColor; border-right-color: transparent; border-radius: 50%; animation: lg-spin .75s linear infinite; }
+@keyframes lg-spin { to { transform: rotate(360deg); } }
+
+.ad-login .lg-back { margin: 1.5rem 0 0; text-align: center; font-size: .88rem; }
+.ad-login .lg-back a { display: inline-flex; align-items: center; gap: .35rem; padding: .25rem .1rem; color: var(--lg-muted); font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: color .15s, border-color .15s; }
+.ad-login .lg-back a:hover { color: var(--lg-accent-d); border-bottom-color: currentColor; }
+.ad-login .lg-back a:visited { color: var(--lg-muted); }
+.ad-login .lg-back a:focus-visible { outline: 2px solid var(--lg-accent); outline-offset: 3px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) { .ad-login * { transition-duration: .001ms !important; } .ad-login .spinner-border { animation-duration: 1.5s; } }
+@media (max-width: 575.98px) { .ad-login { align-items: flex-start; padding: 1rem .75rem; } .ad-login .ad-login-card { margin-top: 3vh; padding: 1.5rem 1.25rem; } .ad-login h1 { font-size: 1.3rem; } }
+@media (max-width: 359.98px) { .ad-login .badge-admin { margin-left: 0; } }
+
+/* theme button (inline icons so this page still needs no icon font) */
+.ad-login .lg-theme { width: 2.4rem; height: 2.4rem; display: grid; place-items: center; margin-left: .5rem; border: 1px solid var(--lg-line); border-radius: 9px; background: var(--lg-surface); color: var(--lg-muted); cursor: pointer; transition: background-color .15s, color .15s; flex: none; }
+.ad-login .lg-theme:hover { background: var(--lg-hover); color: var(--lg-ink); }
+.ad-login .lg-theme:focus-visible { outline: 0; box-shadow: 0 0 0 3px rgba(37, 99, 235, .35); }
+.ad-login .lg-theme svg { width: 1.1rem; height: 1.1rem; }
+.ad-login .lg-theme .i-moon, html[data-bs-theme="dark"] .ad-login .lg-theme .i-sun { display: none; }
+html[data-bs-theme="dark"] .ad-login .lg-theme .i-moon { display: block; }
+
+/* dark mode */
+html[data-bs-theme="dark"] body.admin-body { background: #0B1220; }
+html[data-bs-theme="dark"] .ad-login {
+  --lg-ink: #E6EBF4; --lg-muted: #98A5BA; --lg-line: #2E3F5E; --lg-accent: #6EA0FF; --lg-accent-d: #8DB4FF; --lg-accent-soft: rgba(110, 160, 255, .14); --lg-danger: #FF8A8A;
+  --lg-surface: #121B2E; --lg-card-line: #223049; --lg-hover: #1A2740; --lg-glow: #16233F; --lg-page: #0B1220; --lg-faint: #70809B; --lg-btn: #3A6FE4; --lg-btn-d: #5584EE;
+  --lg-a-danger-bg: rgba(255, 138, 138, .13); --lg-a-danger-line: rgba(255, 138, 138, .35); --lg-a-danger: #FFB3B3;
+  --lg-a-warn-bg: rgba(242, 183, 80, .14); --lg-a-warn-line: rgba(242, 183, 80, .35); --lg-a-warn: #F5C978;
+  --lg-a-info-bg: rgba(110, 160, 255, .14); --lg-a-info-line: rgba(110, 160, 255, .35); --lg-a-info: #B5CDFF;
+  color-scheme: dark;
+}
+html[data-bs-theme="dark"] .ad-login .ad-login-card { box-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 24px 48px -24px rgba(0, 0, 0, .7); }
+html[data-bs-theme="dark"] .ad-login .lg-input:focus { box-shadow: 0 0 0 3px rgba(110, 160, 255, .4); }
