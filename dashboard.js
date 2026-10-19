@@ -273,11 +273,10 @@ document.getElementById('savePrefsBtn').addEventListener('click', async () => {
   notifySuccess('Preferences updated', none ? 'No preferences selected, so no recommendations are shown.' : 'Your recommendations were refreshed to match.');
 });
 
+/* ---------- SCRUM-26: Home Dashboard ---------- */
 function placeCard(p, rank) {
   const topPick = rank === 0;               // -1 = a general suggestion, not a match for this user
   const greatMatch = rank === 1 || rank === 2;
-  // safe Reviews chip (guard Reviews being undefined)
-  const reviewsChip = (typeof Reviews !== 'undefined' && typeof Reviews.chip === 'function') ? Reviews.chip(p) : '';
   return `<div class="col-12 col-xl-6"><div class="place-card place-card-h h-100 ${topPick ? 'is-top-pick' : ''}" role="button" tabindex="0" data-place="${escapeHtml(p.name)}">
     <div class="dm-thumb-wrap">
       ${placeThumb(p)}
@@ -289,7 +288,7 @@ function placeCard(p, rank) {
     <p class="small mb-0">${escapeHtml(p.blurb)}</p>
     <div class="d-flex flex-wrap gap-1 mt-2">
       ${greatMatch ? `<span class="badge rank-badge"><i class="bi bi-check-circle-fill me-1"></i>Great match</span>` : ''}
-      ${reviewsChip}
+      ${Reviews.chip(p)}
       ${p.view ? `<span class="badge text-bg-warning"><i class="bi bi-${p.view}"></i> Good ${p.view} spot</span>` : ''}
       ${!p.costOk ? `<span class="badge text-bg-secondary"><i class="bi bi-cash-coin"></i> Over your budget</span>` : ''}
       <span data-wx-alert="${escapeHtml(p.name)}"></span>
@@ -480,8 +479,6 @@ let catalogBusy = false;
 
 function browseCard(p) {
   const chips = [...new Set(p.cats || [])].map(c => `<span class="chip">${escHtml(label(CATS, c))}</span>`).join('');
-  // safe Reviews chip:
-  const reviewsChip = (typeof Reviews !== 'undefined' && typeof Reviews.chip === 'function') ? Reviews.chip(p) : '';
   return `<div class="col-12 col-md-6 col-xl-4"><div class="place-card browse-card h-100" role="button" tabindex="0" data-place="${escapeHtml(p.name)}" aria-label="View details for ${escapeHtml(p.name)}">
     <div class="dm-thumb-wrap">
       ${placeThumb(p)}
@@ -491,7 +488,7 @@ function browseCard(p) {
       <h3 class="h6 fw-bold mb-0">${escapeHtml(p.name)}</h3>
       <div class="small text-secondary mb-2"><i class="bi bi-geo-alt me-1"></i>${escapeHtml(p.town)}</div>
       <p class="small mb-2">${escapeHtml(p.blurb)}</p>
-      <div class="d-flex flex-wrap gap-1 align-items-center">${reviewsChip}${chips}${p.view ? `<span class="badge text-bg-warning"><i class="bi bi-${p.view}"></i> Good ${p.view} spot</span>` : ''}</div>
+      <div class="d-flex flex-wrap gap-1 align-items-center">${Reviews.chip(p)}${chips}${p.view ? `<span class="badge text-bg-warning"><i class="bi bi-${p.view}"></i> Good ${p.view} spot</span>` : ''}</div>
     </div>
   </div></div>`;
 }
@@ -581,6 +578,10 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && catalogReady && Date.now() - lastCatalogLoad > 60000) refreshCatalog();
 });
 
+/* ---------- Destination Details popup ---------- */
+const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+
+const weatherModalEl = document.getElementById('weatherModal');
 function openDetails(name) {
   const p = PLACES.find(x => x.name === name);
   if (!p) return;
@@ -625,15 +626,9 @@ function openDetails(name) {
   $('dmTipBox').classList.toggle('d-none', !p.tip);
 
   paintDetailsWeather(p);
-  // Bind/load Reviews only when Reviews exists and exposes the expected functions
-  if (typeof Reviews !== 'undefined') {
-    if (typeof Reviews.bind === 'function') Reviews.bind();
-    if (typeof Reviews.load === 'function') Reviews.load(p);   // SCRUM-20: ratings and reviews of this destination
-  }
+  Reviews.bind();
+  Reviews.load(p);   // SCRUM-20: ratings and reviews of this destination
 
-  detailsModal.show();
-  markViewed(p.name);
-}
   detailsModal.show();
   markViewed(p.name);
 }
@@ -646,26 +641,17 @@ document.getElementById('detailsModal').addEventListener('hidden.bs.modal', () =
 // Temperature tiers for the weather card's accent colour (CSS: .dm-weather[data-tier]). Upper bounds are exclusive and apply to the
 // rounded temperature that is shown: <10 cold, 10-19 cool, 20-27 mild, 28-32 warm, 33+ hot. A missing or invalid temperature = no tier (neutral card).
 const WX_TIERS = [[10, 'cold'], [20, 'cool'], [28, 'mild'], [33, 'warm']];
+function wxTier(tempC) {
+  const t = typeof tempC === 'number' ? Math.round(tempC) : NaN;
+  if (!Number.isFinite(t)) return '';
+  return (WX_TIERS.find(([max]) => t < max) || [0, 'hot'])[1];
+}
+// SCRUM-18: the advisory box under the weather card (good / be careful / not advised, with the reasons and what to do).
 function paintDetailsAdvisory(p) {
   const box = document.getElementById('dmAdvisory');
-  // If Weather module isn't present or still loading without live data, hide the box
-  if (typeof Weather === 'undefined') { box.classList.add('d-none'); return; }
   if (Weather.loading && !Weather.live) { box.classList.add('d-none'); return; }   // still loading: say nothing yet
-
-  const a = (typeof Weather.advisory === 'function') ? Weather.advisory(p.name) : null;
-  if (!a || !a.level) { box.classList.add('d-none'); return; }
-
-  // sanitize icon to a safe subset (alphanumeric, hyphen, space). Fallback to 'bi-exclamation-circle'.
-  const icon = (a.icon && /^[a-z0-9\-\s]+$/i.test(a.icon)) ? a.icon : 'bi-exclamation-circle';
-
-  const reasonsHtml = (a.reasons || []).length ? `<ul class="adv-reasons">${(a.reasons || []).map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul>` : '';
-  const adviceHtml = a.advice ? `<p class="adv-advice">${escapeHtml(a.advice)}</p>` : '';
-  box.className = `adv-box adv-${escapeHtml(a.level)} mb-3`;
-  box.innerHTML = `<div class="adv-head"><i class="bi ${escapeHtml(icon)}"></i><div><div class="adv-title">Weather advisory</div><strong>${escapeHtml(a.label || '')}</strong></div></div>`
-    + reasonsHtml
-    + adviceHtml
-    + '<p class="adv-stamp">Based on current conditions, not a forecast.</p>';
-}
+  const a = Weather.advisory(p.name);
+  box.className = `adv-box adv-${a.level} mb-3`;
   box.innerHTML = `<div class="adv-head"><i class="bi ${a.icon}"></i><div><div class="adv-title">Weather advisory</div><strong>${escapeHtml(a.label)}</strong></div></div>`
     + ((a.reasons || []).length ? `<ul class="adv-reasons">${a.reasons.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul>` : '')
     + (a.advice ? `<p class="adv-advice">${escapeHtml(a.advice)}</p>` : '')
@@ -719,18 +705,13 @@ document.addEventListener('click', e => {
   const el = e.target.closest('[data-place]');
   if (!el) return;
   e.preventDefault();
- document.getElementById('dmPlanRoute').addEventListener('click', () => {
-  const p = openPlace;
-  if (!p) return;
-  detailsModal.hide();
-  showView('planner/route');
-  if (typeof PlannerUI !== 'undefined' && typeof PlannerUI.routeTo === 'function') {
-    PlannerUI.routeTo(p);
-  } else {
-    // Planner not available — optional UX: inform the user (toast) or silently ignore
-    // notify('info', 'Planner is not available right now.');
-  }
+  openDetails(el.dataset.place);
 });
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const el = e.target.closest('[data-place]');
+  if (!el) return;
+  e.preventDefault();
   openDetails(el.dataset.place);
 });
 
@@ -756,39 +737,31 @@ function paintWeather() {
     el.innerHTML = wx ? `<i class="bi ${wx.icon}"></i> ${wx.tempC}°` : '';
     if (wx) el.title = wx.desc;
   });
- function renderWeatherList() {
+  document.querySelectorAll('[data-wx-alert]').forEach(el => {
+    const wx = Weather.info(el.dataset.wxAlert);
+    const pl = PLACES.find(p => p.name === el.dataset.wxAlert);
+    const bad = wx && pl && wx.wet && pl.cats.some(isOutdoorCat);
+    el.innerHTML = bad ? `<span class="badge text-bg-info"><i class="bi bi-cloud-rain me-1"></i>${wx.group === 'thunder' ? 'Storm now' : wx.group === 'rain' ? 'Rain now' : 'Rough weather'}</span>` : '';
+  });
+
+  const badge = document.getElementById('liveWeather'), tac = Weather.info('Tacloban City');
+  badge.innerHTML = tac
+    ? `<i class="bi ${tac.icon} me-1"></i>${tac.tempC}°C, ${Weather.esc(tac.desc)} in Tacloban City`
+    : (Weather.error || Weather.live ? `<i class="bi bi-cloud-slash me-1"></i>Weather unavailable` : `<i class="bi bi-cloud me-1"></i>Loading weather…`);   // "Loading" only until the first answer arrives
+  if (!tac && Weather.error) badge.title = Weather.error;
+
+  renderWeatherList();
+  if (openPlace) paintDetailsWeather(openPlace);
+  if (typeof PlannerUI !== 'undefined') PlannerUI.onWeather();   // a route already on screen gets its weather box refreshed
+}
+
+// "Check weather" popup: every spot, grouped by town (live readings only; a spot with no reading says "No data").
+function renderWeatherList() {
   const list = document.getElementById('weatherList');
   const note = document.getElementById('weatherNote');
   if (!Weather.live) {
     // Nothing loaded yet: either the first request is still running, or it failed (the Refresh button tries again).
     list.innerHTML = Weather.loading || !Weather.error
-      ? `<div class="empty-state"><span class="spinner-border spinner-border-sm text-secondary mb-2" aria-hidden="true"></span><p class="fw-semibold mb-0">Loading weather…</p></div>`
-      : `<div class="empty-state"><i class="bi bi-cloud-slash"></i><p class="fw-semibold mb-1">Live weather isn't available</p><p class="small text-secondary mb-0">${Weather.esc(Weather.error)}</p></div>`;
-    note.textContent = '';
-    return;
-  }
-  const byTown = [...PLACES].sort((a, b) => a.town.localeCompare(b.town) || a.name.localeCompare(b.name));
-  list.innerHTML = byTown.map(p => {
-    const wx = (typeof Weather !== 'undefined' && typeof Weather.info === 'function') ? Weather.info(p.name) : null;
-    let advisoryBadge = '';
-    if (typeof Weather !== 'undefined' && typeof Weather.advisory === 'function') {
-      const a = Weather.advisory(p.name);
-      if (a && a.level) {
-        const icon = (a.icon && /^[a-z0-9\-\s]+$/i.test(a.icon)) ? a.icon : 'bi-exclamation-circle';
-        advisoryBadge = `<span class="adv-badge adv-${escapeHtml(a.level)} mt-1" title="${escapeHtml((a.reasons || []).join(' '))}"><i class="bi ${escapeHtml(icon)}"></i>${escapeHtml(a.label || '')}</span>`;
-      }
-    }
-    return `<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3" data-place="${escapeHtml(p.name)}">
-      ${placeThumb(p, 'sm')}
-      <span class="flex-grow-1"><span class="fw-semibold d-block">${escapeHtml(p.name)}</span>
-        <span class="small text-secondary">${escapeHtml(p.town)}${wx ? ` · ${Weather.esc(wx.desc)}` : ''}</span></span>
-      ${wx ? `<span class="text-end"><span class="fw-bold"><i class="bi ${escapeHtml(wx.icon)} me-1"></i>${escapeHtml(String(wx.tempC))}°C</span>
-        <span class="d-block small text-secondary"><i class="bi bi-wind"></i> ${escapeHtml(String(wx.windKph))} km/h</span>${advisoryBadge}</span>` : '<span class="small text-secondary">No data</span>'}
-    </a>`;
-  }).join('');
-  // Some places answered but the latest refresh failed: say so instead of looking current.
-  note.textContent = Weather.stamp() + (Weather.error ? ` · ${Weather.error}` : '');
-}
       ? `<div class="empty-state"><span class="spinner-border spinner-border-sm text-secondary mb-2" aria-hidden="true"></span><p class="fw-semibold mb-0">Loading weather…</p></div>`
       : `<div class="empty-state"><i class="bi bi-cloud-slash"></i><p class="fw-semibold mb-1">Live weather isn't available</p><p class="small text-secondary mb-0">${Weather.esc(Weather.error)}</p></div>`;
     note.textContent = '';
