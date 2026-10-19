@@ -1,0 +1,34 @@
+[
+    {
+        "key": "beach",
+        "label": "Beaches & islands",
+        "icon": "bi-water",
+        "outdoor": true,
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-12T19:36:45+02:00"
+    },
+    {
+        "key": "nature",
+        "label": "Nature & lakes",
+        "icon": "bi-tree",
+        "outdoor": true,
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-12T19:36:45+02:00"
+    },
+    {
+        "key": "history",
+        "label": "Historical & cultural",
+        "icon": "bi-bank",
+        "outdoor": false,
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-12T19:36:45+02:00"
+    },
+    {
+        "key": "landmark",
+        "label": "Landmarks & viewpoints",
+        "icon": "bi-geo-alt",
+        "outdoor": false,
+        "created": "2026-10-12T19:36:45+02:00",
+        "updated": "2026-10-12T19:36:45+02:00"
+    }
+]

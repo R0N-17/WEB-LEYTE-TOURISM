@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in</title>
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/fonts.css" rel="stylesheet">
+
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/theme.css" rel="stylesheet">
+  <script src="js/theme-init.js"></script>
+</head>
+<body>
+
+<div class="container-fluid p-0">
+  <div class="row g-0 min-vh-100 auth-row">
+
+    <!-- Left: brand + scene -->
+    <aside class="col-lg-6 scene">
+      <div id="placeCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5500" data-bs-pause="hover" aria-label="Featured Leyte destinations">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#placeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Kalanggaman Island"></button>
+          <button type="button" data-bs-target="#placeCarousel" data-bs-slide-to="1" aria-label="Lake Danao"></button>
+          <button type="button" data-bs-target="#placeCarousel" data-bs-slide-to="2" aria-label="San Juanico Bridge"></button>
+          <button type="button" data-bs-target="#placeCarousel" data-bs-slide-to="3" aria-label="Cuatro Islas"></button>
+        </div>
+        <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="slide-art" style="background:linear-gradient(#6EC3E6,#CFEFF0)">
+            <svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <circle cx="620" cy="230" r="60" fill="#FFF3C4" opacity=".9"/>
+          <rect y="520" width="800" height="380" fill="#1E8FA0"/>
+          <path d="M0 640 Q200 600 400 630 T800 620 V900 H0Z" fill="#35B8B3"/>
+          <ellipse cx="400" cy="680" rx="330" ry="70" fill="#7FE0D0" opacity=".7"/>
+          <path d="M120 690 Q420 640 700 685 Q430 725 120 690Z" fill="#F6EBCB"/>
+          <path d="M300 600 Q420 540 540 600 Q420 625 300 600Z" fill="#F6EBCB"/>
+          <path d="M330 590 Q420 530 510 590 Q420 575 330 590Z" fill="#2E8B57"/>
+          <path d="M405 585 Q400 520 385 490 M405 585 Q410 515 435 485" stroke="#5B3A29" stroke-width="5" fill="none"/>
+          <path d="M385 490 Q350 480 335 500 M385 490 Q380 465 360 460 M385 490 Q415 470 430 480 M435 485 Q470 470 490 490 M435 485 Q440 460 460 455" stroke="#1F6B3F" stroke-width="6" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <img class="slide-photo" src="images/kalanggaman-island.jpg" alt="">
+          <div class="slide-caption"><strong>Kalanggaman Island</strong><span>Palompon</span><small>A white sandbar in clear water. Best at sunset.</small></div>
+        </div>
+        <div class="carousel-item">
+          <div class="slide-art" style="background:linear-gradient(#A9CCD6,#E6F0EA)">
+            <svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <path d="M0 470 L120 360 L230 450 L360 300 L500 440 L620 340 L800 470 V600 H0Z" fill="#3E7C6B" opacity=".75"/>
+          <path d="M0 540 L150 430 L300 520 L470 400 L640 520 L800 450 V620 H0Z" fill="#1F5B4B"/>
+          <rect y="580" width="800" height="320" fill="#2B7F86"/>
+          <path d="M0 620 Q200 605 400 620 T800 620 V660 H0Z" fill="#1F5B4B" opacity=".5"/>
+          <rect y="480" width="800" height="110" fill="#fff" opacity=".3"/>
+          <path d="M0 720 Q200 710 400 720 T800 720 M0 780 Q200 770 400 780 T800 780" stroke="#fff" opacity=".22" stroke-width="3" fill="none"/></svg>
+          </div>
+          <img class="slide-photo" src="images/lake-danao.jpg" alt="">
+          <div class="slide-caption"><strong>Lake Danao</strong><span>Ormoc City</span><small>A mountain lake wrapped in morning mist.</small></div>
+        </div>
+        <div class="carousel-item">
+          <div class="slide-art" style="background:linear-gradient(#F7C777,#F2A541 60%,#F7C777)">
+            <svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <circle cx="600" cy="470" r="70" fill="#FCE3B0" opacity=".9"/>
+          <rect y="590" width="800" height="310" fill="#0E5E6F"/>
+          <g transform="translate(0 400)">
+            <g stroke="#0B2A3C" stroke-width="3" fill="none"><path d="M60 150 Q400 -10 740 150"/><path d="M0 175 H800" stroke-width="7"/></g>
+            <g stroke="#0B2A3C" stroke-width="1.5" opacity=".7"><path d="M140 175V112M220 175V88M300 175V72M380 175V66M460 175V68M540 175V80M620 175V102M700 175V133"/></g>
+            <g fill="#0B2A3C"><rect x="196" y="175" width="10" height="70"/><rect x="396" y="175" width="10" height="70"/><rect x="596" y="175" width="10" height="70"/></g>
+          </g>
+          <path d="M0 650 Q100 636 200 650 T400 650 T600 650 T800 650 V900 H0Z" fill="#0E5E6F" opacity=".85"/>
+          <path d="M0 720 Q100 706 200 720 T400 720 T600 720 T800 720 V900 H0Z" fill="#0B2A3C" opacity=".85"/></svg>
+          </div>
+          <img class="slide-photo" src="images/san-juanico-bridge.jpg" alt="">
+          <div class="slide-caption"><strong>San Juanico Bridge</strong><span>Tacloban City</span><small>Leyte meets Samar. Best at sunrise.</small></div>
+        </div>
+        <div class="carousel-item">
+          <div class="slide-art" style="background:linear-gradient(#4B3A6B,#E8674A 65%,#F7B267)">
+            <svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <circle cx="400" cy="560" r="85" fill="#FFD9A0"/>
+          <rect y="560" width="800" height="340" fill="#5A2F55"/>
+          <rect x="350" y="575" width="100" height="280" fill="#F7B267" opacity=".35"/>
+          <path d="M100 560 Q190 470 290 560Z" fill="#1E1730"/>
+          <path d="M500 560 Q600 440 710 560Z" fill="#1E1730"/>
+          <path d="M620 560 Q670 505 740 560Z" fill="#1E1730"/>
+          <path d="M0 640 Q200 628 400 640 T800 640 M0 720 Q200 708 400 720 T800 720" stroke="#F7B267" opacity=".25" stroke-width="3" fill="none"/></svg>
+          </div>
+          <img class="slide-photo" src="images/cuatro-islas.jpg" alt="">
+          <div class="slide-caption"><strong>Cuatro Islas</strong><span>Inopacan</span><small>Island silhouettes at sunset.</small></div>
+        </div>
+        </div>
+      </div>
+      <div class="scene-scrim"></div>
+      <div class="scene-copy">
+        <a href="#" class="brand d-inline-flex align-items-center gap-2 mb-3 mb-lg-4">
+          <span class="brand-mark"><img src="images/logo-compass.svg" alt="" width="26" height="26"></span> Leyte Tourism Guide
+        </a>
+        <h1>Plan your Leyte trip before you pack.</h1>
+        <div class="d-none d-lg-flex flex-wrap gap-2 mt-4">
+          <span class="feature-pill"><i class="bi bi-cloud-sun"></i> Live weather</span>
+          <span class="feature-pill"><i class="bi bi-signpost-split"></i> Route planner</span>
+          <span class="feature-pill"><i class="bi bi-calendar2-check"></i> Day trip plans</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right: log in -->
+    <main class="col-lg-6 offset-lg-6 d-flex align-items-center justify-content-center p-4 p-lg-5">
+      <div class="auth-wrap">
+
+        <ul class="nav nav-pills nav-fill mb-4" id="authTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" href="login.html">Log in</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" href="register.html">Create account</a>
+          </li>
+        </ul>
+
+        <div id="formAlert" class="alert d-none" role="alert"></div>
+
+        <h2 class="h3 fw-bold mb-1">Welcome back</h2>
+        <p class="text-secondary mb-4">Log in to see your favorites and saved routes.</p>
+
+        <form id="loginForm" novalidate>
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control form-control-lg" id="loginEmail" name="email"
+                   autocomplete="email" required>
+            <div class="invalid-feedback">Enter the email you registered with.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Password</label>
+            <div class="input-group has-validation">
+              <input type="password" class="form-control form-control-lg" id="loginPassword" name="password"
+                     autocomplete="current-password" required>
+              <button class="btn btn-outline-secondary toggle-pw" type="button" data-target="loginPassword"
+                      aria-label="Show password"><i class="bi bi-eye"></i></button>
+              <div class="invalid-feedback">Enter your password.</div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remember">
+              <label class="form-check-label" for="remember">Keep me logged in</label>
+            </div>
+            <a href="forgot-password.html" class="small">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg w-100">Log in</button>
+        </form>
+
+        <p class="text-center text-secondary mt-4 mb-0">
+          New to Leyte Tourism Guide?
+          <a href="register.html" class="fw-semibold">Create an account</a>
+        </p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/common.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
