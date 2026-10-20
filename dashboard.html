@@ -40,6 +40,13 @@
       <div class="theme-fab-menu" role="group" aria-label="Color theme">
         <button type="button" class="theme-fab-item" data-theme-mode="light"><i class="bi bi-sun"></i>Light Mode</button>
         <button type="button" class="theme-fab-item" data-theme-mode="dark"><i class="bi bi-moon-stars"></i>Dark Mode</button>
+    <!-- Appearance: one round button (shows the current mode). Hover or tap it and Light, Dark, Auto drop down. -->
+    <div class="theme-fab theme-fab-inline">
+      <button type="button" class="theme-fab-toggle" aria-haspopup="true" aria-label="Color theme"><i class="bi bi-sun"></i></button>
+      <div class="theme-fab-menu" role="group" aria-label="Color theme">
+        <button type="button" class="theme-fab-item" data-theme-mode="light"><i class="bi bi-sun"></i>Light (default)</button>
+        <button type="button" class="theme-fab-item" data-theme-mode="dark"><i class="bi bi-moon-stars"></i>Dark</button>
+        <button type="button" class="theme-fab-item" data-theme-mode="auto" title="Light from 6 AM to 6 PM, dark otherwise"><i class="bi bi-circle-half"></i>Auto (day &amp; night)</button>
       </div>
     </div>
 
@@ -88,6 +95,7 @@
           <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#prefsModal">
             <i class="bi bi-sliders me-1"></i> Preferences
           </button>
+          <a href="#" class="btn btn-primary disabled" aria-disabled="true" tabindex="-1" title="Coming soon"><i class="bi bi-signpost-split me-1"></i> Plan a route <em class="soon-tag ms-1">Coming soon</em></a>
         </div>
       </div>
 
@@ -96,6 +104,8 @@
         <div class="col-6 col-lg-3">
           <a href="#browse" class="quick-card" data-view="browse">
             <i class="bi bi-compass"></i><span>Browse destinations</span>
+          <a href="#" class="quick-card is-disabled" aria-disabled="true" tabindex="-1">
+            <i class="bi bi-compass"></i><span>Browse destinations</span><em class="soon-tag">Coming soon</em>
           </a>
         </div>
         <div class="col-6 col-lg-3">
@@ -106,6 +116,8 @@
         <div class="col-6 col-lg-3">
           <a href="#" class="quick-card" data-bs-toggle="modal" data-bs-target="#weatherModal">
             <i class="bi bi-cloud-sun"></i><span>Check weather</span>
+          <a href="#" class="quick-card is-disabled" aria-disabled="true" tabindex="-1">
+            <i class="bi bi-cloud-sun"></i><span>Check weather</span><em class="soon-tag">Coming soon</em>
           </a>
         </div>
         <div class="col-6 col-lg-3">
@@ -141,6 +153,7 @@
     </section>
 
     <!-- ===== History log ===== -->
+            <!-- ===== History log ===== -->
     <section class="dash-view d-none" id="view-history">
       <div class="row g-4">
         <!-- Recently viewed -->
@@ -341,6 +354,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      <div class="modal-body pt-0">
         <div class="list-group" id="weatherList"></div>
       </div>
       <div class="modal-footer border-0 justify-content-between">
@@ -405,8 +419,99 @@
         </div>
       </div>
       <div class="modal-footer dm-footer">
+<!-- Destination Details popup: opens for any card/row with data-place. Landscape: photo on the left, info on the right. -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="dmName" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl dm-dialog">
+    <div class="modal-content border-0 rounded-4 overflow-hidden">
+      <div class="dm-landscape">
+        <div class="dm-side">
+          <div id="dmThumbWrap" class="dm-thumb"></div>
+          <div class="dm-side-body">
+            <div class="d-flex flex-wrap gap-1 mb-3" id="dmCats"></div>
+            <div class="dm-weather d-flex align-items-center gap-3">
+              <i class="bi display-6" id="dmWeatherIcon"></i>
+              <div>
+                <div class="d-flex align-items-baseline gap-2"><span class="fw-bold fs-5" id="dmWeatherTemp"></span><span class="small text-secondary" id="dmWeatherCond"></span></div>
+                <div class="small text-secondary" id="dmWeatherMeta"></div>
+                <div class="small mt-1" id="dmWeatherTip"></div>
+                <div class="wx-src" id="dmWeatherSrc"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dm-main modal-body">
+          <h2 class="h4 fw-bold mb-0" id="dmName">&nbsp;</h2>
+          <p class="text-secondary small mb-3" id="dmTown"></p>
+          <p class="mb-2 fw-medium" id="dmBlurb"></p>
+          <p class="mb-3 text-secondary" id="dmAbout"></p>
+
+          <h3 class="dm-h">Highlights</h3>
+          <ul class="dm-highlights mb-3" id="dmHighlights"></ul>
+
+          <dl class="dm-facts row mb-3">
+            <dt class="col-sm-4 text-secondary small">Entrance fee</dt>
+            <dd class="col-sm-8 fw-medium" id="dmFee"></dd>
+            <dt class="col-sm-4 text-secondary small">Operating hours</dt>
+            <dd class="col-sm-8 fw-medium" id="dmHours"></dd>
+            <dt class="col-sm-4 text-secondary small">Best time to visit</dt>
+            <dd class="col-sm-8" id="dmBest"></dd>
+            <dt class="col-sm-4 text-secondary small">Getting there</dt>
+            <dd class="col-sm-8" id="dmGetThere"></dd>
+            <dt class="col-sm-4 text-secondary small">Facilities</dt>
+            <dd class="col-sm-8"><ul class="ps-3 mb-0" id="dmFacilities"></ul></dd>
+          </dl>
+
+          <div class="dm-tip d-flex gap-2"><i class="bi bi-lightbulb"></i><span id="dmTip"></span></div>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
         <a href="#" class="btn btn-primary disabled" aria-disabled="true" tabindex="-1" title="Coming soon"><i class="bi bi-signpost-split me-1"></i>Plan a route here <em class="soon-tag ms-1">Coming soon</em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Destination details popup ===== -->
+<div class="modal fade detail-modal" id="placeDetailModal" tabindex="-1" aria-labelledby="dpName" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0">
+      <button type="button" class="btn-close detail-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      <div class="detail-hero" id="dpThumb"></div>
+
+      <div class="modal-body p-3 p-sm-4">
+        <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+          <h2 class="h4 fw-bold mb-0" id="dpName">Destination name</h2>
+          <button type="button" class="btn btn-fav" id="dpFavBtn"><i class="bi bi-heart"></i></button>
+        </div>
+        <p class="text-secondary mb-3" id="dpTown"><i class="bi bi-geo-alt"></i> Town</p>
+
+        <div class="d-flex flex-wrap gap-1 mb-3" id="dpBadges"></div>
+
+        <!-- Current weather (SCRUM-17: Weather Information) -->
+        <div class="weather-box d-flex align-items-center gap-3 mb-3">
+          <i class="bi fs-2" id="dpWeatherIcon"></i>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-baseline gap-2">
+              <span class="fw-bold fs-5" id="dpWeatherTemp"></span>
+              <span class="small text-secondary" id="dpWeatherCond"></span>
+            </div>
+            <p class="small mb-0" id="dpWeatherTip"></p>
+          </div>
+        </div>
+
+        <p class="mb-3" id="dpBlurb"></p>
+
+        <dl class="detail-list mb-3">
+          <dt>Entrance fee</dt><dd id="dpFee"></dd>
+          <dt>Hours</dt><dd id="dpHours"></dd>
+          <dt>Facilities</dt><dd id="dpFacilities"></dd>
+        </dl>
+
+        <div class="d-grid gap-2">
+          <a href="#" class="btn btn-primary disabled" aria-disabled="true" tabindex="-1" title="Coming soon"><i class="bi bi-signpost-split me-1"></i> Plan a route here <em class="soon-tag ms-1">Coming soon</em></a>
+        </div>
       </div>
     </div>
   </div>
