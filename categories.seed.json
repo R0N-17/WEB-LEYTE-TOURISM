@@ -1,0 +1,6 @@
+[
+  { "key": "beach",    "label": "Beaches & islands",      "icon": "bi-water",  "outdoor": true  },
+  { "key": "nature",   "label": "Nature & lakes",         "icon": "bi-tree",   "outdoor": true  },
+  { "key": "history",  "label": "Historical & cultural",  "icon": "bi-bank",   "outdoor": false },
+  { "key": "landmark", "label": "Landmarks & viewpoints", "icon": "bi-geo-alt", "outdoor": false }
+]

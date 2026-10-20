@@ -34,6 +34,12 @@
       </div>
       <div class="nav-search-results d-none" id="searchResults" role="listbox"></div>
     </div>
+    <!-- Appearance: one round button (shows the current theme). Hover or tap it and Light Mode / Dark Mode drop down. -->
+    <div class="theme-fab theme-fab-inline">
+      <button type="button" class="theme-fab-toggle" aria-haspopup="true" aria-label="Color theme" title="Color theme"><i class="bi bi-sun"></i></button>
+      <div class="theme-fab-menu" role="group" aria-label="Color theme">
+        <button type="button" class="theme-fab-item" data-theme-mode="light"><i class="bi bi-sun"></i>Light Mode</button>
+        <button type="button" class="theme-fab-item" data-theme-mode="dark"><i class="bi bi-moon-stars"></i>Dark Mode</button>
     <!-- Appearance: one round button (shows the current mode). Hover or tap it and Light, Dark, Auto drop down. -->
     <div class="theme-fab theme-fab-inline">
       <button type="button" class="theme-fab-toggle" aria-haspopup="true" aria-label="Color theme"><i class="bi bi-sun"></i></button>
@@ -65,6 +71,7 @@
   <aside class="dash-sidebar" id="dashSidebar">
     <nav class="dash-sidebar-nav" aria-label="Dashboard sections">
       <a href="#dashboard" class="dash-sidebar-link active" data-view="dashboard"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+      <a href="#browse" class="dash-sidebar-link" data-view="browse"><i class="bi bi-compass"></i><span>Destinations</span></a>
       <a href="#history" class="dash-sidebar-link" data-view="history"><i class="bi bi-clock-history"></i><span>History Log</span></a>
     </nav>
   </aside>
@@ -95,6 +102,8 @@
       <!-- Quick access -->
       <div class="row g-3 mb-5">
         <div class="col-6 col-lg-3">
+          <a href="#browse" class="quick-card" data-view="browse">
+            <i class="bi bi-compass"></i><span>Browse destinations</span>
           <a href="#" class="quick-card is-disabled" aria-disabled="true" tabindex="-1">
             <i class="bi bi-compass"></i><span>Browse destinations</span><em class="soon-tag">Coming soon</em>
           </a>
@@ -105,6 +114,8 @@
           </a>
         </div>
         <div class="col-6 col-lg-3">
+          <a href="#" class="quick-card" data-bs-toggle="modal" data-bs-target="#weatherModal">
+            <i class="bi bi-cloud-sun"></i><span>Check weather</span>
           <a href="#" class="quick-card is-disabled" aria-disabled="true" tabindex="-1">
             <i class="bi bi-cloud-sun"></i><span>Check weather</span><em class="soon-tag">Coming soon</em>
           </a>
@@ -122,11 +133,26 @@
           <h2 class="h4 fw-bold mb-0">Recommended for you</h2>
           <button class="btn btn-link btn-sm text-decoration-none" type="button" data-bs-toggle="modal" data-bs-target="#prefsModal">Not quite right? Adjust preferences</button>
         </div>
+        <p class="small text-secondary mb-3" id="recNote" aria-live="polite"></p>
         <div class="row g-3" id="recommended"></div>
       </section>
 
     </section>
 
+    <!-- ===== Browse destinations (SCRUM-12 directory + SCRUM-13 category filter) ===== -->
+    <section class="dash-view d-none" id="view-browse">
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
+        <div>
+          <h2 class="h4 fw-bold mb-1">Browse destinations</h2>
+          <p class="text-secondary small mb-0" id="browseCount" aria-live="polite">Loading destinations…</p>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary d-none" id="browseReset"><i class="bi bi-x-circle me-1"></i>Show all destinations</button>
+      </div>
+      <div class="browse-filters mb-4" id="browseFilters" role="group" aria-label="Filter destinations by category"></div>
+      <div class="row g-3" id="browseGrid"></div>
+    </section>
+
+    <!-- ===== History log ===== -->
             <!-- ===== History log ===== -->
     <section class="dash-view d-none" id="view-history">
       <div class="row g-4">
@@ -327,6 +353,7 @@
         <h2 class="modal-title h5 fw-bold" id="weatherModalLabel"><i class="bi bi-cloud-sun me-2"></i>Weather at every spot</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
       <div class="modal-body pt-0">
         <div class="list-group" id="weatherList"></div>
       </div>
@@ -338,6 +365,60 @@
   </div>
 </div>
 
+<!-- Destination Details popup: opens for any card/row with data-place.
+     One scroll area (.dm-scroll) holds the photo + title header and the details, so the header scrolls away naturally.
+     The footer buttons (including Close) stay put. -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="dmName" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl dm-dialog">
+    <div class="modal-content border-0 rounded-4 overflow-hidden">
+      <div class="dm-scroll">
+        <div class="dm-hero">
+          <div id="dmThumbWrap" class="dm-thumb"></div>
+          <div class="dm-head">
+            <div class="d-flex flex-wrap gap-1 mb-2" id="dmCats"></div>
+            <h2 class="dm-title" id="dmName">&nbsp;</h2>
+            <p class="dm-town" id="dmTown"></p>
+          </div>
+        </div>
+        <div class="dm-body">
+          <div class="dm-col">
+            <p class="mb-2 fw-medium" id="dmBlurb"></p>
+            <p class="mb-3 text-secondary" id="dmAbout"></p>
+
+            <h3 class="dm-h" id="dmHighlightsHead">Highlights</h3>
+            <ul class="dm-highlights mb-3" id="dmHighlights"></ul>
+
+            <div class="dm-tip d-flex gap-2" id="dmTipBox"><i class="bi bi-lightbulb"></i><span id="dmTip"></span></div>
+          </div>
+          <div class="dm-col">
+            <div class="dm-weather d-flex gap-3 mb-3" id="dmWeather" aria-live="polite">
+              <i class="bi" id="dmWeatherIcon"></i>
+              <div class="min-w-0">
+                <div class="d-flex align-items-baseline flex-wrap gap-x-2"><span class="fw-bold" id="dmWeatherTemp"></span><span id="dmWeatherCond"></span></div>
+                <div id="dmWeatherMeta"></div>
+                <div id="dmWeatherTip"></div>
+                <div class="wx-src" id="dmWeatherSrc"></div>
+                <button type="button" class="btn btn-sm btn-outline-secondary mt-2 d-none" id="dmWeatherRetry"><i class="bi bi-arrow-clockwise me-1"></i>Try again</button>
+              </div>
+            </div>
+
+            <div class="dm-card" id="dmFactsCard">
+              <h3 class="dm-h" id="dmFactsHead">Quick details</h3>
+              <dl class="dm-facts mb-0" id="dmFacts">
+                <dt>Entrance fee</dt><dd id="dmFee"></dd>
+                <dt>Operating hours</dt><dd id="dmHours"></dd>
+                <dt>Setting</dt><dd id="dmArea"></dd>
+                <dt>Best time of day</dt><dd id="dmTimes"></dd>
+                <dt>Typical visit length</dt><dd id="dmStay"></dd>
+                <dt class="dm-long">Best time to visit</dt><dd class="dm-long" id="dmBest"></dd>
+                <dt class="dm-long">Getting there</dt><dd class="dm-long" id="dmGetThere"></dd>
+                <dt class="dm-long">Facilities</dt><dd class="dm-long"><ul class="ps-3 mb-0" id="dmFacilities"></ul></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer dm-footer">
 <!-- Destination Details popup: opens for any card/row with data-place. Landscape: photo on the left, info on the right. -->
 <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="dmName" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl dm-dialog">

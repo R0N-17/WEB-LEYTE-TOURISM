@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <script src="../js/theme-init.js"></script>
+  <title>Settings · KYR Web Tourism Admin</title>
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="../css/fonts.css" rel="stylesheet">
+  <link href="css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body auth-pending" data-no-theme-fab>
+<div class="ad-shell">
+  <aside class="ad-side" id="adSide" aria-label="Admin navigation"></aside>
+  <div class="ad-scrim" id="adScrim"></div>
+  <div class="ad-main">
+    <header class="ad-top" id="adTop"></header>
+    <main class="ad-content" id="main">
+
+      <div class="ad-page-head">
+        <div>
+          <h1>Settings</h1>
+          <p>Choose how the console looks, check which administrator account you are using, and see details about the application.</p>
+        </div>
+      </div>
+
+      <div class="row g-3 align-items-start">
+
+        <!-- Appearance -->
+        <div class="col-12 col-xl-6">
+          <section class="ad-card" aria-labelledby="hAppearance">
+            <h2 class="ad-card-head" id="hAppearance"><i class="bi bi-palette" aria-hidden="true"></i>Appearance</h2>
+            <div class="ad-card-body">
+              <p class="ad-set-help" id="themeHelp">Pick Light or Dark. The change applies immediately, to this console and to the public site, and is remembered on this browser.</p>
+              <div class="ad-theme-choices" role="group" aria-labelledby="hAppearance" aria-describedby="themeHelp">
+                <button type="button" class="ad-theme-choice" data-theme-mode="light" aria-pressed="false">
+                  <span class="prev prev-light" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="lbl"><i class="bi bi-sun" aria-hidden="true"></i>Light</span>
+                  <span class="state">Selected</span>
+                </button>
+                <button type="button" class="ad-theme-choice" data-theme-mode="dark" aria-pressed="false">
+                  <span class="prev prev-dark" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="lbl"><i class="bi bi-moon-stars" aria-hidden="true"></i>Dark</span>
+                  <span class="state">Selected</span>
+                </button>
+              </div>
+              <p class="ad-set-note mb-0" id="themeStatus" role="status" aria-live="polite">Loading…</p>
+            </div>
+          </section>
+        </div>
+
+        <!-- Account information -->
+        <div class="col-12 col-xl-6">
+          <section class="ad-card" aria-labelledby="hAccount">
+            <h2 class="ad-card-head" id="hAccount"><i class="bi bi-person-badge" aria-hidden="true"></i>Account information</h2>
+            <div class="ad-card-body" id="accountBody" aria-live="polite" aria-busy="true">
+              <span class="ad-skel mb-3" style="width:55%"></span><span class="ad-skel mb-3" style="width:70%"></span><span class="ad-skel" style="width:40%"></span>
+            </div>
+          </section>
+        </div>
+
+        <!-- Login page slideshow -->
+        <div class="col-12">
+          <section class="ad-card" aria-labelledby="hSlides">
+            <h2 class="ad-card-head" id="hSlides"><i class="bi bi-images" aria-hidden="true"></i>Login page slideshow</h2>
+            <div class="ad-card-body">
+              <p class="ad-set-help">The photos and caption card on the left side of the Log in, Create account and Forgot password pages. Change the photo, the title, the place and the description of each slide, add new slides, and put them in the order visitors should see them.</p>
+              <div id="slideList" class="ad-slides" aria-live="polite" aria-busy="true"><span class="ad-skel mb-3" style="width:60%"></span><span class="ad-skel" style="width:45%"></span></div>
+              <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                <button type="button" class="btn btn-ad btn-sm" id="slideAdd"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Add slide</button>
+                <a class="btn btn-outline-secondary btn-sm" href="../login.html" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right me-1" aria-hidden="true"></i>Preview login page</a>
+                <span class="ad-set-note ms-sm-auto mb-0" id="slideCount"></span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Application information -->
+        <div class="col-12">
+          <section class="ad-card" aria-labelledby="hApp">
+            <h2 class="ad-card-head" id="hApp"><i class="bi bi-info-circle" aria-hidden="true"></i>Application information</h2>
+            <div class="ad-card-body">
+              <dl class="ad-info-grid mb-0">
+                <div><dt>Application name</dt><dd>Leyte Tourism Guide</dd></div>
+                <div><dt>Version</dt><dd class="ad-unspec">Beta Version</dd></div>
+                <div class="wide"><dt>Purpose</dt><dd>Helps visitors discover and plan trips to selected destinations in Leyte Province. Administrators manage the destinations and categories shown on the public site.</dd></div>
+                <div><dt>Project type</dt><dd>Student Project (as stated in the <a href="../terms.html" target="_blank" rel="noopener">Terms of Use</a>)</dd></div>
+                <div><dt>Project proponents</dt><dd>Cabacaba, Yester A.; Salceda, Ronnel L., Jr.; Gacita, Klyde Theo</dd></div>
+              </dl>
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- Slide form -->
+<div class="modal fade" id="slideModal" tabindex="-1" aria-labelledby="slideTitle" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable"><div class="modal-content">
+    <form id="slideForm" novalidate>
+      <div class="modal-header"><div><h2 class="modal-title" id="slideTitle">Add slide</h2><p class="modal-desc">Fields marked with * are required.</p></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body">
+        <div id="slideError" class="alert alert-danger d-none" role="alert"></div>
+        <div class="row g-3">
+          <div class="col-md-5">
+            <div class="ad-slide-stage" id="slideStage" aria-label="Preview of the slide">
+              <img class="d-none" id="slidePrev" alt="">
+              <div class="ad-slide-art" id="slideArt"></div>
+              <div class="ad-slide-cap"><strong id="pvTitle">Title</strong><span id="pvPlace"></span><small id="pvText"></small></div>
+            </div>
+            <div class="ad-photo-state mt-2" id="slidePhotoState"><i class="bi bi-image" aria-hidden="true"></i><span>No photo</span></div>
+          </div>
+          <div class="col-md-7">
+            <div class="mb-3"><label class="form-label req" for="sTitle">Title</label><input class="form-control" id="sTitle" maxlength="60" placeholder="e.g. San Juanico Bridge" required><div class="invalid-feedback">Enter the title.</div></div>
+            <div class="mb-3"><label class="form-label" for="sPlace">Place</label><input class="form-control" id="sPlace" maxlength="60" placeholder="e.g. Tacloban City"></div>
+            <div class="mb-3"><label class="form-label" for="sText">Description</label><input class="form-control" id="sText" maxlength="140" placeholder="One short line, e.g. Leyte meets Samar. Best at sunrise."><div class="form-text">Up to 140 characters.</div></div>
+          </div>
+          <div class="col-12">
+            <span class="form-label d-block" id="slidePhotoLabel">Photo</span>
+            <label class="ad-drop position-relative" id="slideDrop" for="sPhoto">
+              <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+              <div class="t"><u>Choose a file</u> or drag it here</div>
+              <div class="s">JPG, PNG, WebP or AVIF, up to 3 MB. A wide, landscape photo looks best.</div>
+              <input type="file" id="sPhoto" accept="image/jpeg,image/png,image/webp,image/avif" aria-describedby="slidePhotoLabel">
+            </label>
+            <div class="ad-fname d-none" id="slideFile"></div>
+            <div class="form-check mt-3 d-none" id="slideRemoveWrap"><input class="form-check-input" type="checkbox" id="sRemove"><label class="form-check-label" for="sRemove">Remove the photo (the slide goes back to its illustrated background)</label></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-ad" id="slideSave">Save slide</button>
+      </div>
+    </form>
+  </div></div>
+</div>
+
+<!-- Slide delete confirmation -->
+<div class="modal fade" id="slideDelModal" tabindex="-1" aria-labelledby="slideDelTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+    <div class="modal-body p-4">
+      <div class="ad-confirm"><span class="ring"><i class="bi bi-trash3" aria-hidden="true"></i></span>
+        <h2 id="slideDelTitle">Remove this slide?</h2>
+        <p class="mb-1">You are about to remove <strong id="slideDelName"></strong> from the login slideshow.</p>
+        <p class="small text-secondary mb-3">Its uploaded photo is deleted from the server. This cannot be undone.</p></div>
+      <div id="slideDelError" class="alert alert-danger small d-none" role="alert"></div>
+      <div class="d-flex gap-2 justify-content-end">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="slideDelOk">Remove slide</button>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/theme.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>
